@@ -199,7 +199,7 @@ class GoogleMapsUtils:
     def get_halts(
         center_lat: float = 6.9271,
         center_lng: float = 79.8612,
-        radius: int = 10000,
+        radius: int = 15000,
     ) -> list[dict]:
         gmaps = GoogleMapsUtils.__get_gmaps_client()
         location = (center_lat, center_lng)
