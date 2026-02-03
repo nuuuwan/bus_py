@@ -70,6 +70,8 @@ def main():
         )
         route.draw()
 
+    Route.summarize_all()
+
 
 if __name__ == "__main__":
     main()

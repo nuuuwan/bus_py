@@ -140,3 +140,27 @@ class Route:
         os.makedirs(self.DIR_IMAGES_ROUTES, exist_ok=True)
         plt.savefig(self.image_path, dpi=75, bbox_inches="tight")
         log.info(f"Wrote {self.image_path}")
+
+    @classmethod
+    def summarize_all(cls):
+        route_files = [
+            f for f in os.listdir(cls.DIR_DATA_ROUTES) if f.endswith(".json")
+        ]
+
+        summaries = []
+        for route_file in route_files:
+            file_path = os.path.join(cls.DIR_DATA_ROUTES, route_file)
+            data = JSONFile(file_path).read()
+            summary = {
+                "route_num": data["route_num"],
+                "direction": data["direction"],
+                "halt_name_list": data["halt_name_list"],
+            }
+            summaries.append(summary)
+
+        summary_path = os.path.join("data", "routes.summary.json")
+        JSONFile(summary_path).write(summaries)
+        log.info(
+            f"Summarized {len(summaries)} routes and saved to {summary_path}"
+        )
+        return summaries
