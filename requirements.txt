@@ -1,2 +1,6 @@
 utils-nuuuwan
 overpy
+matplotlib
+contextily
+googlemaps
+polyline
