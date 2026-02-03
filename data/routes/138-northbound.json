@@ -1,6 +1,12 @@
 {
   "route_num": "138",
   "direction": "northbound",
+  "halt_name_list": [
+    "Town Hall Bus Stop",
+    "107 Bus Station",
+    "107 Bus Station",
+    "Pettah Bus Stop"
+  ],
   "latlng_list": [
     [
       6.84005,

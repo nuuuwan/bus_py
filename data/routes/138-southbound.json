@@ -1,6 +1,9 @@
 {
   "route_num": "138",
   "direction": "southbound",
+  "halt_name_list": [
+    "Anula Vidyalaya Bus Stop"
+  ],
   "latlng_list": [
     [
       6.9351,

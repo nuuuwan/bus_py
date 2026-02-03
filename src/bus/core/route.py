@@ -4,6 +4,7 @@ import contextily as ctx
 import matplotlib.pyplot as plt
 from utils import JSONFile, Log
 
+from bus.core.Halt import Halt
 from googlemaps_utils import GoogleMapsUtils
 
 log = Log("Route")
@@ -17,11 +18,20 @@ class Route:
         self,
         route_num: str,
         direction: str,
+        halt_name_list: list[str],
         latlng_list: list[tuple],
     ):
         self.route_num = route_num
         self.direction = direction
+        self.halt_name_list = halt_name_list
         self.latlng_list = latlng_list
+
+    def __str__(self) -> str:
+        return (
+            f"Route ({self.route_num}-{self.direction} "
+            f"{len(self.latlng_list)} points, "
+            f"{len(self.halt_name_list)} halts)"
+        )
 
     @classmethod
     def get_file_path(cls, route_num: str, direction: str) -> str:
@@ -40,6 +50,7 @@ class Route:
         return cls(
             route_num=data["route_num"],
             direction=data["direction"],
+            halt_name_list=data["halt_name_list"],
             latlng_list=data["latlng_list"],
         )
 
@@ -53,6 +64,7 @@ class Route:
         return {
             "route_num": self.route_num,
             "direction": self.direction,
+            "halt_name_list": self.halt_name_list,
             "latlng_list": self.latlng_list,
         }
 
@@ -71,21 +83,27 @@ class Route:
     ) -> "Route":
         file_path = cls.get_file_path(route_num, direction)
         if os.path.exists(file_path):
-            log.warning(f"Route {route_num} already exists at {file_path}")
-            return cls.from_route_num(route_num, direction)
+            route = cls.from_route_num(route_num, direction)
+            log.warning(f"{route} already exists.")
+            return route
 
         latlng_list = GoogleMapsUtils.get_route_latlng_list(
             start_location_name=start_location_name,
             end_location_name=end_location_name,
             route_num=route_num,
         )
+
+        halt_list = Halt.get_nearby_halts(latlng_list, max_distance_in_m=20)
+        halt_name_list = [halt.name for halt in halt_list]
+
         route = cls(
             route_num=route_num,
             direction=direction,
+            halt_name_list=halt_name_list,
             latlng_list=latlng_list,
         )
         route.to_file()
-        log.info(f"Built route {route_num} with {len(latlng_list)} points")
+        log.info(route)
         return route
 
     def draw(self) -> None:

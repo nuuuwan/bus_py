@@ -2,6 +2,7 @@ from bus import Halt, Route
 
 
 def main():
+    Halt.build_all()
 
     for route_num, direction, start_location, end_location in [
         ("138", "northbound", "Homagama Bus Station", "Pettah Bus Station"),
@@ -14,8 +15,6 @@ def main():
             end_location,
         )
         route.draw()
-
-    Halt.build_all()
 
 
 if __name__ == "__main__":
