@@ -2,10 +2,16 @@
   "route_num": "138",
   "direction": "northbound",
   "halt_name_list": [
+    "Maharagama 138",
+    "Maharagama Bus Station",
+    "Havelock City Bus Stop",
+    "Town Hall",
     "Town Hall Bus Stop",
+    "Hyde Park Bus Stop",
     "107 Bus Station",
-    "107 Bus Station",
-    "Pettah Bus Stop"
+    "Pettah Slt Bus Stop",
+    "Pettah Bus Stop",
+    "Colombo"
   ],
   "latlng_list": [
     [

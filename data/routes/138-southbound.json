@@ -2,7 +2,16 @@
   "route_num": "138",
   "direction": "southbound",
   "halt_name_list": [
-    "Anula Vidyalaya Bus Stop"
+    "Colombo",
+    "Colombo Fort",
+    "Pettah Slt Bus Stop",
+    "Staple Street Bus Stop",
+    "Town Hall",
+    "Colombo Public Library Bus Stop",
+    "Thummulla",
+    "Isipathana",
+    "Anula Vidyalaya Bus Stop",
+    "Nugegoda"
   ],
   "latlng_list": [
     [

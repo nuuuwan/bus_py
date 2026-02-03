@@ -182,13 +182,6 @@
     ]
   },
   {
-    "name": "Rajagiriya Bus Stop",
-    "latlng": [
-      6.910083999999999,
-      79.8944061
-    ]
-  },
-  {
     "name": "Walikada Bus Station",
     "latlng": [
       6.907430499999999,
@@ -326,6 +319,811 @@
     "latlng": [
       6.887531900000001,
       79.94032159999999
+    ]
+  },
+  {
+    "name": "Colombo",
+    "latlng": [
+      6.934959999999999,
+      79.85515000000001
+    ]
+  },
+  {
+    "name": "BusTicket.lk",
+    "latlng": [
+      6.936753899999999,
+      79.8470263
+    ]
+  },
+  {
+    "name": "FastClearing.lk",
+    "latlng": [
+      6.9372116,
+      79.8519457
+    ]
+  },
+  {
+    "name": "Navigation Lanka Shipping (Pvt) Ltd",
+    "latlng": [
+      6.905308100000001,
+      79.861063
+    ]
+  },
+  {
+    "name": "Colombo Academy of Hospitality Management",
+    "latlng": [
+      6.888032900000001,
+      79.85924229999999
+    ]
+  },
+  {
+    "name": "KWANG SENG TRANSPORT SERVICE LANKA (PVT) LTD",
+    "latlng": [
+      6.887005999999999,
+      79.8619643
+    ]
+  },
+  {
+    "name": "Nawaloka Bus Stop",
+    "latlng": [
+      6.9219575,
+      79.8531034
+    ]
+  },
+  {
+    "name": "HSBC Bus Stop",
+    "latlng": [
+      6.906641800000001,
+      79.9018625
+    ]
+  },
+  {
+    "name": "Jethawanaramaya",
+    "latlng": [
+      6.92704,
+      79.86124
+    ]
+  },
+  {
+    "name": "Gamini Hall",
+    "latlng": [
+      6.927158899999999,
+      79.86145359999999
+    ]
+  },
+  {
+    "name": "Lotus Tower Bus Stop",
+    "latlng": [
+      6.927901599999999,
+      79.85919969999999
+    ]
+  },
+  {
+    "name": "Maradana Bus Stop",
+    "latlng": [
+      6.929681199999999,
+      79.8630675
+    ]
+  },
+  {
+    "name": "Maradana Police Bus Stop",
+    "latlng": [
+      6.927741199999999,
+      79.8649356
+    ]
+  },
+  {
+    "name": "Elphinstone Bus Stop",
+    "latlng": [
+      6.9293451,
+      79.864372
+    ]
+  },
+  {
+    "name": "Fire Brigade Bus Stop",
+    "latlng": [
+      6.923237899999999,
+      79.8618923
+    ]
+  },
+  {
+    "name": "Bus Stop",
+    "latlng": [
+      6.9258926,
+      79.86502949999999
+    ]
+  },
+  {
+    "name": "Fire Brigade",
+    "latlng": [
+      6.923086999999999,
+      79.8620626
+    ]
+  },
+  {
+    "name": "Elphinston Maradana",
+    "latlng": [
+      6.929414299999999,
+      79.86464289999999
+    ]
+  },
+  {
+    "name": "Maradana Railway Station",
+    "latlng": [
+      6.929460000000001,
+      79.86511000000002
+    ]
+  },
+  {
+    "name": "Technical Junction Maradana",
+    "latlng": [
+      6.932034300000001,
+      79.86019309999999
+    ]
+  },
+  {
+    "name": "Excel World Bus Stop",
+    "latlng": [
+      6.922130299999999,
+      79.8622393
+    ]
+  },
+  {
+    "name": "Maradana Railway Bus Stop",
+    "latlng": [
+      6.930287300000001,
+      79.86584959999999
+    ]
+  },
+  {
+    "name": "Viharamahadevi Balika Vidyalaya Bus Stop",
+    "latlng": [
+      6.921939999999999,
+      79.8643737
+    ]
+  },
+  {
+    "name": "Bastian Mawatha Bus Stop",
+    "latlng": [
+      6.932210700000001,
+      79.8576192
+    ]
+  },
+  {
+    "name": "Ananda College Bus Stop",
+    "latlng": [
+      6.9244255,
+      79.8680792
+    ]
+  },
+  {
+    "name": "Ibbanwala Bus Stop",
+    "latlng": [
+      6.919650699999999,
+      79.86192419999999
+    ]
+  },
+  {
+    "name": "Hyde Park Bus Stop",
+    "latlng": [
+      6.9196477,
+      79.85952259999999
+    ]
+  },
+  {
+    "name": "Adroit International Maritime (Pvt) Ltd",
+    "latlng": [
+      6.9197288,
+      79.8588989
+    ]
+  },
+  {
+    "name": "Staple Street Bus Stop",
+    "latlng": [
+      6.9213269,
+      79.85596900000002
+    ]
+  },
+  {
+    "name": "Dsl Roundabout Bus Stop",
+    "latlng": [
+      6.933980099999999,
+      79.86522330000001
+    ]
+  },
+  {
+    "name": "Ibbanwala",
+    "latlng": [
+      6.919019799999999,
+      79.86150409999999
+    ]
+  },
+  {
+    "name": "Panadura bus stop",
+    "latlng": [
+      6.9331403,
+      79.8555824
+    ]
+  },
+  {
+    "name": "Colombo Central Bus Stand",
+    "latlng": [
+      6.933735100000001,
+      79.8562748
+    ]
+  },
+  {
+    "name": "Colombo Fort",
+    "latlng": [
+      6.9337118,
+      79.85600889999999
+    ]
+  },
+  {
+    "name": "Bastian Mawatha Bus Stand",
+    "latlng": [
+      6.933626599999999,
+      79.8556066
+    ]
+  },
+  {
+    "name": "Ibbanwala Junction Bus Stop",
+    "latlng": [
+      6.918202900000001,
+      79.8625837
+    ]
+  },
+  {
+    "name": "Colombo Public Library Bus Stop",
+    "latlng": [
+      6.912841599999999,
+      79.8580417
+    ]
+  },
+  {
+    "name": "William Junction Bus Stop",
+    "latlng": [
+      6.863918399999999,
+      79.86359379999999
+    ]
+  },
+  {
+    "name": "New Kelani Bridge Bus Stop",
+    "latlng": [
+      6.952773499999999,
+      79.88073370000001
+    ]
+  },
+  {
+    "name": "W A Silva Mawatha Bus Stop",
+    "latlng": [
+      6.8767288,
+      79.8664105
+    ]
+  },
+  {
+    "name": "4Th Mile Post Bus Stop",
+    "latlng": [
+      6.9558361,
+      79.8883697
+    ]
+  },
+  {
+    "name": "St. Peter'S Bus Stop",
+    "latlng": [
+      6.881056099999999,
+      79.86173269999999
+    ]
+  },
+  {
+    "name": "Unity Plaza Bus Stop",
+    "latlng": [
+      6.893297599999999,
+      79.8554405
+    ]
+  },
+  {
+    "name": "Torington Bus Stop",
+    "latlng": [
+      6.9018055,
+      79.8694083
+    ]
+  },
+  {
+    "name": "Dehiwala Junction Bus Stop",
+    "latlng": [
+      6.8504292,
+      79.8661047
+    ]
+  },
+  {
+    "name": "Bambalapitiya Flats Bus Stop",
+    "latlng": [
+      6.8838744,
+      79.8583915
+    ]
+  },
+  {
+    "name": "Main Street Bus Stop",
+    "latlng": [
+      6.9365947,
+      79.8466491
+    ]
+  },
+  {
+    "name": "Papiliyana Bus Stop",
+    "latlng": [
+      6.85603,
+      79.89077
+    ]
+  },
+  {
+    "name": "Thorana Junction Bus Stop",
+    "latlng": [
+      6.9670695,
+      79.90022379999999
+    ]
+  },
+  {
+    "name": "Cotta Road Railway Bus Stop",
+    "latlng": [
+      6.912922399999999,
+      79.88471890000001
+    ]
+  },
+  {
+    "name": "Polwatta Junction Bus Stop",
+    "latlng": [
+      6.8613077,
+      79.9429513
+    ]
+  },
+  {
+    "name": "Pettah",
+    "latlng": [
+      6.933988599999999,
+      79.8500222
+    ]
+  },
+  {
+    "name": "Thummulla Roundabout Bus Stop",
+    "latlng": [
+      6.8965365,
+      79.8582844
+    ]
+  },
+  {
+    "name": "Armour Street Junction Bus Stop",
+    "latlng": [
+      6.943977599999999,
+      79.8653564
+    ]
+  },
+  {
+    "name": "Seema Malaka Bus Stop",
+    "latlng": [
+      6.9171495,
+      79.85554549999999
+    ]
+  },
+  {
+    "name": "Galle Face Bus Stop",
+    "latlng": [
+      6.925508199999999,
+      79.8447892
+    ]
+  },
+  {
+    "name": "Lionel Wendt Bus Stop",
+    "latlng": [
+      6.906827499999999,
+      79.859774
+    ]
+  },
+  {
+    "name": "Gothatuwa New Town Bus Stop",
+    "latlng": [
+      6.923945499999999,
+      79.9127268
+    ]
+  },
+  {
+    "name": "Sethsiripaya Bus Stop",
+    "latlng": [
+      6.902310399999999,
+      79.9146373
+    ]
+  },
+  {
+    "name": "Punchi Borella Junction Bus Stop",
+    "latlng": [
+      6.9214287,
+      79.8709867
+    ]
+  },
+  {
+    "name": "Gangarama Bus Stop",
+    "latlng": [
+      6.918997999999999,
+      79.8538095
+    ]
+  },
+  {
+    "name": "Moragasmulla Bus Stop",
+    "latlng": [
+      6.9209391,
+      79.89659879999999
+    ]
+  },
+  {
+    "name": "Ndb Dharmapala Mawatha Bus Stop",
+    "latlng": [
+      6.91336,
+      79.85713
+    ]
+  },
+  {
+    "name": "Orugodawatta Bus Stop",
+    "latlng": [
+      6.942431,
+      79.8783902
+    ]
+  },
+  {
+    "name": "Wijerama Bus Stop",
+    "latlng": [
+      6.85808,
+      79.90803
+    ]
+  },
+  {
+    "name": "Jayawardenepura Hospital Bus Stop",
+    "latlng": [
+      6.8657765,
+      79.9278844
+    ]
+  },
+  {
+    "name": "Jubilee Post Bus Stop",
+    "latlng": [
+      6.875126799999999,
+      79.90143379999999
+    ]
+  },
+  {
+    "name": "Inguru Kade Junction Bus Stop",
+    "latlng": [
+      6.9503796,
+      79.8735945
+    ]
+  },
+  {
+    "name": "Dewalamulla Bus Stop",
+    "latlng": [
+      6.839779999999999,
+      79.89603
+    ]
+  },
+  {
+    "name": "Kohuwala Bus Stop",
+    "latlng": [
+      6.868406599999999,
+      79.88331939999999
+    ]
+  },
+  {
+    "name": "Bambalapitiya Junction Bus Stop",
+    "latlng": [
+      6.893355799999999,
+      79.8555422
+    ]
+  },
+  {
+    "name": "Pettah Slt Bus Stop",
+    "latlng": [
+      6.9335064,
+      79.84670799999999
+    ]
+  },
+  {
+    "name": "Kotte-Bope Road",
+    "latlng": [
+      6.9084268,
+      79.93843930000001
+    ]
+  },
+  {
+    "name": "Borella Bus Stop",
+    "latlng": [
+      6.9155272,
+      79.87669509999999
+    ]
+  },
+  {
+    "name": "Nugegoda Bus Stop",
+    "latlng": [
+      6.87165,
+      79.88978
+    ]
+  },
+  {
+    "name": "Peliyagoda Bus Stop",
+    "latlng": [
+      6.9555335,
+      79.88477259999999
+    ]
+  },
+  {
+    "name": "Kelani Campus Bus Stop",
+    "latlng": [
+      6.971801399999999,
+      79.9168251
+    ]
+  },
+  {
+    "name": "Dematagoda Junction Bus Stop",
+    "latlng": [
+      6.932067,
+      79.8782655
+    ]
+  },
+  {
+    "name": "Woodland Avenue Bus Stop",
+    "latlng": [
+      6.862157499999999,
+      79.8885109
+    ]
+  },
+  {
+    "name": "Nelum Pokuna Bus Stop",
+    "latlng": [
+      6.9101858,
+      79.8635764
+    ]
+  },
+  {
+    "name": "Nugegoda Bus Stand",
+    "latlng": [
+      6.8727874,
+      79.8920447
+    ]
+  },
+  {
+    "name": "Maharagama 138",
+    "latlng": [
+      6.8464354,
+      79.9276529
+    ]
+  },
+  {
+    "name": "Nugegoda",
+    "latlng": [
+      6.8690481,
+      79.8901927
+    ]
+  },
+  {
+    "name": "Embuldeniya Junction",
+    "latlng": [
+      6.8681107,
+      79.90919199999999
+    ]
+  },
+  {
+    "name": "Bus Halt",
+    "latlng": [
+      6.908448399999999,
+      79.9367749
+    ]
+  },
+  {
+    "name": "174 Bus Halt, Pannipitiya",
+    "latlng": [
+      6.8466872,
+      79.94987610000001
+    ]
+  },
+  {
+    "name": "Mahara Junction",
+    "latlng": [
+      6.9913295,
+      79.94075869999999
+    ]
+  },
+  {
+    "name": "Aquinas Bus Stop",
+    "latlng": [
+      6.917824100000001,
+      79.8746657
+    ]
+  },
+  {
+    "name": "Mahanama Bus Stop",
+    "latlng": [
+      6.905735099999999,
+      79.8536486
+    ]
+  },
+  {
+    "name": "Maharagama Bus Stop",
+    "latlng": [
+      6.851375399999999,
+      79.8651907
+    ]
+  },
+  {
+    "name": "Havelock City Bus Stop",
+    "latlng": [
+      6.8828704,
+      79.8688485
+    ]
+  },
+  {
+    "name": "Kanatta Road Battaramulla",
+    "latlng": [
+      6.90276,
+      79.92027
+    ]
+  },
+  {
+    "name": "Town Hall",
+    "latlng": [
+      6.9166735,
+      79.8631478
+    ]
+  },
+  {
+    "name": "Wattala Junction",
+    "latlng": [
+      6.9781777,
+      79.8894706
+    ]
+  },
+  {
+    "name": "Isipathana",
+    "latlng": [
+      6.8873751,
+      79.864661
+    ]
+  },
+  {
+    "name": "William Junction",
+    "latlng": [
+      6.862489999999999,
+      79.8644
+    ]
+  },
+  {
+    "name": "Thummulla",
+    "latlng": [
+      6.8987562,
+      79.8607421
+    ]
+  },
+  {
+    "name": "Battaramulla",
+    "latlng": [
+      6.9020196,
+      79.91794999999999
+    ]
+  },
+  {
+    "name": "Siebel Avenue Bus Stop",
+    "latlng": [
+      6.8778669,
+      79.87866989999999
+    ]
+  },
+  {
+    "name": "Route No. 139",
+    "latlng": [
+      6.8671276,
+      79.8774062
+    ]
+  },
+  {
+    "name": "Maharagama Bus Station",
+    "latlng": [
+      6.848137,
+      79.9255446
+    ]
+  },
+  {
+    "name": "Koswatta Bus Station",
+    "latlng": [
+      6.9074895,
+      79.92910909999999
+    ]
+  },
+  {
+    "name": "Gangarama / Seema Malaka Bus Stop",
+    "latlng": [
+      6.917885999999999,
+      79.8544136
+    ]
+  },
+  {
+    "name": "Ethul Kotte Junction Bus Stop",
+    "latlng": [
+      6.9021078,
+      79.9056086
+    ]
+  },
+  {
+    "name": "Batapotha Bus Stop",
+    "latlng": [
+      6.900170999999999,
+      79.93793409999999
+    ]
+  },
+  {
+    "name": "Crescat Bus Stop",
+    "latlng": [
+      6.9174667,
+      79.8477477
+    ]
+  },
+  {
+    "name": "Battaramulla Junction Bus Stop",
+    "latlng": [
+      6.9005733,
+      79.92067159999999
+    ]
+  },
+  {
+    "name": "Town Hall Bus Stop 02",
+    "latlng": [
+      6.9156777,
+      79.86475829999999
+    ]
+  },
+  {
+    "name": "Viharamahadevi Park Bus Stop",
+    "latlng": [
+      6.9141673,
+      79.8586163
+    ]
+  },
+  {
+    "name": "Colombo trincomalee bus stop",
+    "latlng": [
+      6.935394199999999,
+      79.85445419999999
+    ]
+  },
+  {
+    "name": "Visakha Bus Stop",
+    "latlng": [
+      6.8891877,
+      79.85681
+    ]
+  },
+  {
+    "name": "Colombo Campus Bus Stop",
+    "latlng": [
+      6.900563,
+      79.8594974
+    ]
+  },
+  {
+    "name": "Town Hall Bus Halt",
+    "latlng": [
+      6.916622299999999,
+      79.8649282
+    ]
+  },
+  {
+    "name": "Pangiriwatta Bus Halt",
+    "latlng": [
+      6.8648893,
+      79.90161379999999
+    ]
+  },
+  {
+    "name": "Moragaha Junction Bus Stop",
+    "latlng": [
+      6.926473,
+      79.9343146
     ]
   }
 ]
