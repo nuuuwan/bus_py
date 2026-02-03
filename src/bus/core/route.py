@@ -88,7 +88,7 @@ class Route:
         log.info(f"Built route {route_num} with {len(latlng_list)} points")
         return route
 
-    def draw(self, output_path: str = None) -> None:
+    def draw(self) -> None:
         lats = [latlng[0] for latlng in self.latlng_list]
         lngs = [latlng[1] for latlng in self.latlng_list]
 
