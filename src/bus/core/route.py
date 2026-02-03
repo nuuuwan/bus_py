@@ -11,6 +11,7 @@ log = Log("Route")
 
 class Route:
     DIR_DATA_ROUTES = os.path.join("data", "routes")
+    DIR_IMAGES_ROUTES = os.path.join("images", "routes")
 
     def __init__(
         self,
@@ -26,6 +27,12 @@ class Route:
     def get_file_path(cls, route_num: str, direction: str) -> str:
         return os.path.join(
             cls.DIR_DATA_ROUTES, f"{route_num}-{direction}.json"
+        )
+
+    @property
+    def image_path(self) -> str:
+        return os.path.join(
+            self.DIR_IMAGES_ROUTES, f"{self.route_num}-{self.direction}.png"
         )
 
     @classmethod
@@ -82,24 +89,11 @@ class Route:
         return route
 
     def draw(self, output_path: str = None) -> None:
-        """
-        Plot the route on a map with OpenStreetMap basemap.
-
-        Args:
-            output_path: Optional path to save the plot. If None, displays interactively.
-        """
-        if not self.latlng_list:
-            log.warning(f"No points to plot for route {self.route_num}")
-            return
-
-        # Extract latitudes and longitudes
         lats = [latlng[0] for latlng in self.latlng_list]
         lngs = [latlng[1] for latlng in self.latlng_list]
 
-        # Create figure and axis
-        fig, ax = plt.subplots(figsize=(12, 10))
+        __, ax = plt.subplots(figsize=(12, 10))
 
-        # Plot the route
         ax.plot(
             lngs,
             lats,
@@ -108,24 +102,15 @@ class Route:
             label=f"Route {self.route_num}",
             zorder=2,
         )
-        ax.plot(lngs[0], lats[0], "go", markersize=10, label="Start", zorder=3)
-        ax.plot(lngs[-1], lats[-1], "ro", markersize=10, label="End", zorder=3)
 
-        # Add basemap
-        try:
-            ctx.add_basemap(
-                ax,
-                crs="EPSG:4326",
-                source=ctx.providers.OpenStreetMap.Mapnik,
-                zoom="auto",
-                attribution="© OpenStreetMap contributors",
-            )
-        except Exception as e:
-            log.warning(f"Could not add basemap: {e}")
+        ctx.add_basemap(
+            ax,
+            crs="EPSG:4326",
+            source=ctx.providers.OpenStreetMap.Mapnik,
+            zoom="auto",
+            attribution="© OpenStreetMap contributors",
+        )
 
-        # Set labels and title
-        ax.set_xlabel("Longitude")
-        ax.set_ylabel("Latitude")
         ax.set_title(
             f"Route {
                 self.route_num} ({
@@ -134,15 +119,6 @@ class Route:
                     self.latlng_list)} points)"
         )
         ax.legend()
-        ax.grid(True, alpha=0.3)
-
-        plt.tight_layout()
-
-        # Save or show
-        if output_path:
-            plt.savefig(output_path, dpi=300, bbox_inches="tight")
-            log.info(f"Route {self.route_num} map saved to {output_path}")
-        else:
-            plt.show()
-
-        plt.close()
+        os.makedirs(self.DIR_IMAGES_ROUTES, exist_ok=True)
+        plt.savefig(self.image_path, dpi=300, bbox_inches="tight")
+        log.info(f"Wrote {self.image_path}")
