@@ -52,9 +52,13 @@ class Halt:
                 unique_halt_data_list.append(halt_data)
 
         halts = [cls.from_dict(data) for data in unique_halt_data_list]
-        JSONFile(cls.HALTS_DATA_PATH).write([halt.to_dict() for halt in halts])
+        JSONFile(cls.HALTS_DATA_PATH).write(
+            [halt.to_dict() for halt in halts]
+        )
         log.info(
-            f"Built {len(halts)} unique halts from {len(halt_data_list)} total,"
+            f"Built {
+                len(halts)} unique halts from {
+                len(halt_data_list)} total,"
             + f" saved to {cls.HALTS_DATA_PATH}."
         )
         return halts
