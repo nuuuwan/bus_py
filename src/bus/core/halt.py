@@ -1,16 +1,22 @@
 import os
+import warnings
 from functools import cache
 from math import asin, cos, radians, sin, sqrt
 
+import contextily as ctx
+import matplotlib.pyplot as plt
 from utils import JSONFile, Log
 
 from googlemaps_utils import GoogleMapsUtils
+
+warnings.filterwarnings("ignore", category=UserWarning, module="matplotlib")
 
 log = Log("Halt")
 
 
 class Halt:
     HALTS_DATA_PATH = os.path.join("data", "halts.json")
+    DIR_IMAGES_HALTS = os.path.join("images", "halts")
 
     def __init__(self, name: str, latlng: tuple[float, float]):
         self.name = name
@@ -37,9 +43,7 @@ class Halt:
 
         halt_data_list = GoogleMapsUtils.get_halts()
         halts = [cls.from_dict(data) for data in halt_data_list]
-        JSONFile(cls.HALTS_DATA_PATH).write(
-            [halt.to_dict() for halt in halts]
-        )
+        JSONFile(cls.HALTS_DATA_PATH).write([halt.to_dict() for halt in halts])
         log.info(
             f"Built {len(halts)} halts and saved to {cls.HALTS_DATA_PATH}."
         )
@@ -88,16 +92,54 @@ class Halt:
         cls, latlng_list: list[tuple[float, float]], max_distance_in_m: float
     ) -> list["Halt"]:
         halts = cls.list_all()
-        if not halts or not latlng_list:
-            return []
-
         nearby_halts = []
 
         for latlng in latlng_list:
             for halt in halts:
+                if halt in nearby_halts:
+                    continue
                 distance = cls.__calculate_distance_in_m(latlng, halt.latlng)
                 if distance <= max_distance_in_m:
                     nearby_halts.append(halt)
-                    break
 
         return nearby_halts
+
+    @classmethod
+    def draw_all(cls) -> None:
+        halts = cls.list_all()
+        if not halts:
+            log.warning("No halts to draw")
+            return
+
+        lats = [halt.latlng[0] for halt in halts]
+        lngs = [halt.latlng[1] for halt in halts]
+
+        __, ax = plt.subplots(figsize=(12, 10))
+
+        ax.scatter(lngs, lats, c="red", s=50, zorder=3, label="Bus Halts")
+
+        for halt in halts:
+            ax.annotate(
+                halt.name,
+                xy=(halt.latlng[1], halt.latlng[0]),
+                xytext=(5, 5),
+                textcoords="offset points",
+                fontsize=6,
+                zorder=4,
+            )
+
+        ctx.add_basemap(
+            ax,
+            crs="EPSG:4326",
+            source=ctx.providers.OpenStreetMap.Mapnik,
+            zoom="auto",
+            attribution="© OpenStreetMap contributors",
+        )
+
+        ax.set_title(f"Bus Halts ({len(halts)} halts)")
+        ax.legend()
+
+        image_path = os.path.join(cls.DIR_IMAGES_HALTS, "all_halts.png")
+        os.makedirs(cls.DIR_IMAGES_HALTS, exist_ok=True)
+        plt.savefig(image_path, dpi=75, bbox_inches="tight")
+        log.info(f"Wrote {image_path}")
