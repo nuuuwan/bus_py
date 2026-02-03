@@ -1,4 +1,4 @@
-from bus import Route
+from bus import Halt, Route
 
 
 def main():
@@ -14,6 +14,8 @@ def main():
             end_location,
         )
         route.draw()
+
+    Halt.build_all()
 
 
 if __name__ == "__main__":

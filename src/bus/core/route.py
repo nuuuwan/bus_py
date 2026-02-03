@@ -120,5 +120,5 @@ class Route:
         )
         ax.legend()
         os.makedirs(self.DIR_IMAGES_ROUTES, exist_ok=True)
-        plt.savefig(self.image_path, dpi=300, bbox_inches="tight")
+        plt.savefig(self.image_path, dpi=75, bbox_inches="tight")
         log.info(f"Wrote {self.image_path}")

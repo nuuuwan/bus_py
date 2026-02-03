@@ -1,4 +1,5 @@
 import os
+import time
 
 import googlemaps
 import polyline
@@ -69,3 +70,61 @@ class GoogleMapsUtils:
             directions_result, route_num
         )
         return GoogleMapsUtils.__decode_route_polyline(selected_route)
+
+    @staticmethod
+    def __extract_halt_from_place(place: dict) -> dict:
+        name = place.get("name", "Unknown")
+        location = place.get("geometry", {}).get("location", {})
+        lat = location.get("lat")
+        lng = location.get("lng")
+
+        if lat is None or lng is None:
+            return None
+
+        return {"name": name, "latlng": [lat, lng]}
+
+    @staticmethod
+    def __extract_halts_from_results(places_result: dict) -> list[dict]:
+        halts = []
+        for place in places_result.get("results", []):
+            halt = GoogleMapsUtils.__extract_halt_from_place(place)
+            if halt:
+                halts.append(halt)
+        return halts
+
+    @staticmethod
+    def __fetch_paginated_halts(
+        gmaps: googlemaps.Client, places_result: dict
+    ) -> list[dict]:
+        halts = []
+        while "next_page_token" in places_result:
+            time.sleep(2)
+            places_result = gmaps.places_nearby(
+                page_token=places_result["next_page_token"]
+            )
+            page_halts = GoogleMapsUtils.__extract_halts_from_results(
+                places_result
+            )
+            halts.extend(page_halts)
+        return halts
+
+    @staticmethod
+    def get_halts(
+        center_lat: float = 6.9271,
+        center_lng: float = 79.8612,
+        radius: int = 10000,
+    ) -> list[dict]:
+        gmaps = GoogleMapsUtils.__get_gmaps_client()
+        location = (center_lat, center_lng)
+
+        places_result = gmaps.places_nearby(
+            location=location, radius=radius, type="bus_station"
+        )
+
+        halts = GoogleMapsUtils.__extract_halts_from_results(places_result)
+        paginated_halts = GoogleMapsUtils.__fetch_paginated_halts(
+            gmaps, places_result
+        )
+        halts.extend(paginated_halts)
+
+        return halts
