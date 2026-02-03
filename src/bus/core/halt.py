@@ -42,10 +42,20 @@ class Halt:
             return cls.list_all()
 
         halt_data_list = GoogleMapsUtils.get_halts()
-        halts = [cls.from_dict(data) for data in halt_data_list]
+
+        seen_names = set()
+        unique_halt_data_list = []
+        for halt_data in halt_data_list:
+            name = halt_data["name"]
+            if name not in seen_names:
+                seen_names.add(name)
+                unique_halt_data_list.append(halt_data)
+
+        halts = [cls.from_dict(data) for data in unique_halt_data_list]
         JSONFile(cls.HALTS_DATA_PATH).write([halt.to_dict() for halt in halts])
         log.info(
-            f"Built {len(halts)} halts and saved to {cls.HALTS_DATA_PATH}."
+            f"Built {len(halts)} unique halts from {len(halt_data_list)} total,"
+            + f" saved to {cls.HALTS_DATA_PATH}."
         )
         return halts
 
