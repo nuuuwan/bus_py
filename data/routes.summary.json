@@ -1,0 +1,188 @@
+[
+  {
+    "route_num": "103",
+    "direction": "southbound",
+    "halt_name_list": [
+      "Pettah Bus Stop",
+      "Pettah",
+      "Colombo Central Bus Stand",
+      "Bastian Mawatha Bus Stop",
+      "Technical Junction Maradana",
+      "Dsl Roundabout Bus Stop",
+      "Elphinston Maradana",
+      "Maradana Railway Station",
+      "Elphinstone Bus Stop",
+      "Maradana Police Bus Stop",
+      "Ananda College Bus Stop",
+      "Punchi Borella Junction Bus Stop",
+      "Borella Bus Stop",
+      "Borella",
+      "Borella Cemetery Bus Stop"
+    ]
+  },
+  {
+    "route_num": "176",
+    "direction": "southbound",
+    "halt_name_list": [
+      "Kotahena Bus Stand",
+      "Armour Street Junction Bus Stop",
+      "Elphinstone Bus Stop",
+      "Elphinston Maradana",
+      "Maradana Railway Station",
+      "Maradana Police Bus Stop",
+      "Ananda College Bus Stop",
+      "Punchi Borella Junction Bus Stop",
+      "Borella",
+      "Cotta Rd and Ruhunukala Mawatha Bus Station",
+      "Rajagiriya Bus Stop",
+      "Walikada Bus Station",
+      "Janadipathi Prathamika Bus Stop",
+      "Wimala Wihara Mawatha Bus Stop",
+      "Nugegoda Bus Stop"
+    ]
+  },
+  {
+    "route_num": "138",
+    "direction": "northbound",
+    "halt_name_list": [
+      "Colombo-Batticaloa Hwy Bus Station",
+      "Delkanda Bus Stop",
+      "Havelock City Bus Stop",
+      "Town Hall Bus Stop",
+      "Hyde Park Bus Stop",
+      "107 Bus Station",
+      "Pettah Slt Bus Stop",
+      "Pettah Bus Stop",
+      "Pettah"
+    ]
+  },
+  {
+    "route_num": "177",
+    "direction": "northbound",
+    "halt_name_list": [
+      "Kaduwela",
+      "Kotte-Bope Road",
+      "Bus Halt",
+      "Koswatta Bus Station",
+      "Ganahena Bus Stop",
+      "Battaramulla Junction Bus Station",
+      "Sethsiripaya Bus Stop",
+      "HSBC Bus Stop",
+      "Rajagiriya Bus Stop",
+      "Liberty Bus Stop"
+    ]
+  },
+  {
+    "route_num": "103",
+    "direction": "northbound",
+    "halt_name_list": [
+      "Borella Cemetery Bus Stop",
+      "Punchi Borella Junction Bus Stop",
+      "Ananda College Bus Stop",
+      "Maradana Police Bus Stop",
+      "Maradana Bus Stop",
+      "Technical Junction Maradana",
+      "Bastian Mawatha Bus Stop",
+      "Colombo Central Bus Stand",
+      "Bastian Mawatha Bus Stand",
+      "Pettah Bus Stop",
+      "Pettah"
+    ]
+  },
+  {
+    "route_num": "138",
+    "direction": "southbound",
+    "halt_name_list": [
+      "Pettah Bus Stop",
+      "Pettah",
+      "Pettah Slt Bus Stop",
+      "Staple Street Bus Stop",
+      "Adroit International Maritime (Pvt) Ltd",
+      "Hyde Park Bus Stop",
+      "Ibbanwala",
+      "Colombo Public Library Bus Stop",
+      "Nelum Pokuna Bus Stop",
+      "Police Park Bus Stop",
+      "Havelock City Bus Stop",
+      "Delkanda Bus Stop",
+      "Colombo-Batticaloa Hwy Bus Station"
+    ]
+  },
+  {
+    "route_num": "176",
+    "direction": "northbound",
+    "halt_name_list": [
+      "Nugegoda Bus Stop",
+      "Wimala Wihara Mawatha Bus Stop",
+      "Janadipathi Prathamika Bus Stop",
+      "Walikada Bus Station",
+      "Rajagiriya Bus Stop",
+      "Cotta Rd and Ruhunukala Mawatha Bus Station",
+      "Borella",
+      "Punchi Borella Junction Bus Stop",
+      "Ananda College Bus Stop",
+      "Maradana Police Bus Stop",
+      "Maradana Bus Stop",
+      "Armour Street Junction Bus Stop",
+      "Kotahena Bus Stand"
+    ]
+  },
+  {
+    "route_num": "101",
+    "direction": "northbound",
+    "halt_name_list": [
+      "Maliban Junction Bus Stop",
+      "Mt. Lavinia Bus Stop",
+      "Cemetery Bus Stop",
+      "Dehiwala Junction Bus Stop",
+      "Roxy Garden Bus Stop",
+      "Arpico Bus Stop",
+      "Mangala Bus Stop",
+      "Bambalapitiya Flats Bus Stop",
+      "Unity Plaza Bus Stop",
+      "ACBT Bus Stop",
+      "107 Bus Station",
+      "Pettah Bus Stop",
+      "Pettah"
+    ]
+  },
+  {
+    "route_num": "177",
+    "direction": "eastbound",
+    "halt_name_list": [
+      "Colombo Public Library Bus Stop",
+      "Nelum Pokuna Bus Stop",
+      "Rajagiriya Bus Stop",
+      "HSBC Bus Stop",
+      "Sethsiripaya Bus Stop",
+      "Battaramulla Junction Bus Station",
+      "Ganahena Bus Stop",
+      "Koswatta Bus Station",
+      "Bus Halt",
+      "Kotte-Bope Road",
+      "Kaduwela"
+    ]
+  },
+  {
+    "route_num": "101",
+    "direction": "southbound",
+    "halt_name_list": [
+      "Pettah Bus Stop",
+      "Pettah",
+      "Pettah Slt Bus Stop",
+      "Nawaloka Bus Stop",
+      "Gangarama Bus Stop",
+      "Seema Malaka Bus Stop",
+      "Colombo Public Library Bus Stop",
+      "Liberty Bus Stop",
+      "British Council Bus Stop",
+      "\u0db6\u0db8\u0dca\u0db6\u0dbd\u0db4\u0dd2\u0da7\u0dd2\u0dba \u0dc4\u0db1\u0dca\u0daf\u0dd2\u0dba\u0dda \u0db6\u0dc3\u0dca \u0db1\u0dd0\u0dc0\u0dad\u0dd4\u0db8\u0dca\u0db4\u0dc5",
+      "Mangala Bus Stop",
+      "Roxy Garden Bus Stop",
+      "Dehiwala Junction Bus Stop",
+      "Cemetery Bus Stop",
+      "Mt. Lavinia Bus Stop",
+      "Maliban Junction Bus Stop"
+    ]
+  }
+]
