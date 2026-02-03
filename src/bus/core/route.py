@@ -93,7 +93,7 @@ class Route:
             route_num=route_num,
         )
 
-        halt_list = Halt.get_nearby_halts(latlng_list, max_distance_in_m=20)
+        halt_list = Halt.get_nearby_halts(latlng_list, max_distance_in_m=100)
         halt_name_list = [halt.name for halt in halt_list]
 
         route = cls(
