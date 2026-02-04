@@ -2,6 +2,7 @@ import os
 import warnings
 from functools import cache
 from math import asin, cos, radians, sin, sqrt
+from urllib.parse import unquote, urlparse
 
 import contextily as ctx
 import matplotlib.pyplot as plt
@@ -167,3 +168,65 @@ class Halt:
         os.makedirs(cls.DIR_IMAGES_HALTS, exist_ok=True)
         plt.savefig(image_path, dpi=75, bbox_inches="tight")
         log.info(f"Wrote {image_path}")
+
+
+    @classmethod
+    def add_from_url(cls, url):
+        name, latlng = cls.__parse_url(url)
+        
+        halts = cls.list_all()
+        halt_dicts = [h.to_dict() for h in halts]
+        
+        new_id = cls.get_id(name, latlng)
+        
+        if any(h['id'] == new_id for h in halt_dicts):
+            log.warning(f"Halt {name} already exists")
+            return
+        
+        new_halt = cls(id=new_id, name=name, latlng=latlng)
+        halt_dicts.append(new_halt.to_dict())
+        
+        halt_dicts.sort(key=lambda x: x['name'])
+        
+        cls.__cleanup_halt_dicts(halt_dicts)
+        
+        JSONFile(cls.HALTS_DATA_PATH).write(halt_dicts)
+        log.info(f"Added halt {name} at {latlng}")
+
+    @classmethod
+    def __cleanup_halt_dicts(cls, halt_dicts):
+        for halt_dict in halt_dicts:
+            lat, lng = halt_dict['latlng']
+            halt_dict['latlng'] = [round(lat, 4), round(lng, 4)]
+
+    @classmethod
+    def __parse_url(cls, url):
+        parsed = urlparse(url)
+        path_parts = parsed.path.split('/')
+        
+        name = cls.__extract_name(path_parts)
+        latlng = cls.__extract_latlng(path_parts)
+        
+        return name, latlng
+    
+    @classmethod
+    def __extract_name(cls, path_parts):
+        for part in path_parts:
+            if part.startswith('search'):
+                continue
+            if '+' in part or '%20' in part:
+                name = unquote(part).replace('+', ' ')
+                return name
+        raise ValueError("Could not extract name from URL")
+    
+    @classmethod
+    def __extract_latlng(cls, path_parts):
+        for part in path_parts:
+            if part.startswith('@'):
+                coords = part[1:].split(',')[:2]
+                lat = float(coords[0])
+                lng = float(coords[1])
+                return (lat, lng)
+        raise ValueError("Could not extract coordinates from URL")
+
+        
