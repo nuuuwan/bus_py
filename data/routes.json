@@ -19,7 +19,7 @@
       "borella-6.9150N-79.8780E",
       "borella-cemetery-bus-stop-6.9073N-79.8774E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.93405,
         79.85022
@@ -542,7 +542,7 @@
       "wimala-wihara-mawatha-bus-stop-6.8918N-79.8883E",
       "nugegoda-bus-stop-6.8716N-79.8898E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.94798,
         79.86117
@@ -1899,7 +1899,7 @@
       "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-6.9340N-79.8500E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.84005,
         79.99976
@@ -3381,7 +3381,7 @@
       "rajagiriya-bus-stop-6.9085N-79.8934E",
       "liberty-bus-stop-6.9099N-79.8523E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.93654,
         79.98327
@@ -5076,7 +5076,7 @@
       "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-6.9340N-79.8500E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.89648,
         79.87715
@@ -5513,7 +5513,7 @@
       "delkanda-bus-stop-6.8629N-79.9015E",
       "colombo-batticaloa-hwy-bus-station-6.8483N-79.9257E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.93397,
         79.85023
@@ -7078,7 +7078,7 @@
       "armour-street-junction-bus-stop-6.9425N-79.8645E",
       "kotahena-bus-stand-6.9480N-79.8612E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.8479,
         79.87242
@@ -8595,7 +8595,7 @@
       "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-6.9340N-79.8500E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.81931,
         79.87351
@@ -9506,7 +9506,7 @@
       "kotte-bope-road-6.9084N-79.9384E",
       "kaduwela-6.9365N-79.9831E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.91206,
         79.85076
@@ -11010,7 +11010,7 @@
       "mt-lavinia-bus-stop-6.8330N-79.8674E",
       "maliban-junction-bus-stop-6.8193N-79.8735E"
     ],
-    "latlng_list_length": [
+    "latlng_list": [
       [
         6.93397,
         79.85023

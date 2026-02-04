@@ -155,7 +155,7 @@ class Route:
                 "route_num": data["route_num"],
                 "direction": data["direction"],
                 "halt_id_list": data["halt_id_list"],
-                'latlng_list_length': data["latlng_list"],
+                'latlng_list': data["latlng_list"],
             }
             d_list.append(d)
 
