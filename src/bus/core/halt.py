@@ -170,6 +170,14 @@ class Halt:
 
 
     @classmethod
+    def cleanup_halts_data(cls):
+        halt_dicts = JSONFile(cls.HALTS_DATA_PATH).read()
+        cls.__cleanup_halt_dicts(halt_dicts)
+        halt_dicts.sort(key=lambda x: x['name'])
+        JSONFile(cls.HALTS_DATA_PATH).write(halt_dicts)
+        log.info(f"Cleaned up {len(halt_dicts)} halts in {cls.HALTS_DATA_PATH}")
+
+    @classmethod
     def add_new_halt(cls, name: str, latlng: tuple[float, float]):
         halts = cls.list_all()
         halt_dicts = [h.to_dict() for h in halts]
