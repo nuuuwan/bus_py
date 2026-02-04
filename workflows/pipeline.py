@@ -35,6 +35,19 @@ def main():
         # 138
         ("138", "southbound", "Pettah Bus Stop", "Homagama Bus Station"),
         ("138", "northbound", "Homagama Bus Station", "Pettah Bus Stop"),
+        # 143
+        (
+            "143",
+            "eastbound",
+            "Colombo Central Bus Stop",
+            "Hanwella Bus Stand",
+        ),
+        (
+            "143",
+            "westbound",
+            "Hanwella Bus Stand",
+            "Colombo Central Bus Stop",
+        ),
         # 144
         (
             "144",
