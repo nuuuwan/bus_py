@@ -1,17 +1,17 @@
 {
   "route_num": "177",
   "direction": "northbound",
-  "halt_name_list": [
-    "Kaduwela",
-    "Kotte-Bope Road",
-    "Bus Halt",
-    "Koswatta Bus Station",
-    "Ganahena Bus Stop",
-    "Battaramulla Junction Bus Station",
-    "Sethsiripaya Bus Stop",
-    "HSBC Bus Stop",
-    "Rajagiriya Bus Stop",
-    "Liberty Bus Stop"
+  "halt_id_list": [
+    "kaduwela-6.9365N-79.9831E",
+    "kotte-bope-road-6.9084N-79.9384E",
+    "bus-halt-6.9084N-79.9368E",
+    "koswatta-bus-station-6.9067N-79.9288E",
+    "ganahena-bus-stop-6.9042N-79.9239E",
+    "battaramulla-junction-bus-station-6.9020N-79.9174E",
+    "sethsiripaya-bus-stop-6.9023N-79.9152E",
+    "hsbc-bus-stop-6.9066N-79.9019E",
+    "rajagiriya-bus-stop-6.9085N-79.8934E",
+    "liberty-bus-stop-6.9099N-79.8523E"
   ],
   "latlng_list": [
     [

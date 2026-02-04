@@ -18,19 +18,19 @@ class Route:
         self,
         route_num: str,
         direction: str,
-        halt_name_list: list[str],
+        halt_id_list: list[str],
         latlng_list: list[tuple],
     ):
         self.route_num = route_num
         self.direction = direction
-        self.halt_name_list = halt_name_list
+        self.halt_id_list = halt_id_list
         self.latlng_list = latlng_list
 
     def __str__(self) -> str:
         return (
             f"Route ({self.route_num}-{self.direction} "
             f"{len(self.latlng_list)} points, "
-            f"{len(self.halt_name_list)} halts)"
+            f"{len(self.halt_id_list)} halts)"
         )
 
     @classmethod
@@ -50,7 +50,7 @@ class Route:
         return cls(
             route_num=data["route_num"],
             direction=data["direction"],
-            halt_name_list=data["halt_name_list"],
+            halt_id_list=data["halt_id_list"],
             latlng_list=data["latlng_list"],
         )
 
@@ -64,7 +64,7 @@ class Route:
         return {
             "route_num": self.route_num,
             "direction": self.direction,
-            "halt_name_list": self.halt_name_list,
+            "halt_id_list": self.halt_id_list,
             "latlng_list": self.latlng_list,
         }
 
@@ -94,12 +94,12 @@ class Route:
         )
 
         halt_list = Halt.get_nearby_halts(latlng_list, max_distance_in_m=50)
-        halt_name_list = [halt.name for halt in halt_list]
+        halt_id_list = [halt.id for halt in halt_list]
 
         route = cls(
             route_num=route_num,
             direction=direction,
-            halt_name_list=halt_name_list,
+            halt_id_list=halt_id_list,
             latlng_list=latlng_list,
         )
         route.to_file()
@@ -142,25 +142,26 @@ class Route:
         log.info(f"Wrote {self.image_path}")
 
     @classmethod
-    def summarize_all(cls):
+    def aggregate(cls):
         route_files = [
             f for f in os.listdir(cls.DIR_DATA_ROUTES) if f.endswith(".json")
         ]
 
-        summaries = []
+        d_list = []
         for route_file in route_files:
             file_path = os.path.join(cls.DIR_DATA_ROUTES, route_file)
             data = JSONFile(file_path).read()
-            summary = {
+            d = {
                 "route_num": data["route_num"],
                 "direction": data["direction"],
-                "halt_name_list": data["halt_name_list"],
+                "halt_id_list": data["halt_id_list"],
+                'latlng_list_length': data["latlng_list"],
             }
-            summaries.append(summary)
+            d_list.append(d)
 
-        summary_path = os.path.join("data", "routes.summary.json")
-        JSONFile(summary_path).write(summaries)
+        aggregate_file = JSONFile(os.path.join("data", "routes.json"))
+        aggregate_file.write(d_list)
         log.info(
-            f"Summarized {len(summaries)} routes and saved to {summary_path}"
+            f"Aggregated {len(d_list)} to {aggregate_file}"
         )
-        return summaries
+        return d_list

@@ -1,22 +1,22 @@
 {
   "route_num": "103",
   "direction": "southbound",
-  "halt_name_list": [
-    "Pettah Bus Stop",
-    "Pettah",
-    "Colombo Central Bus Stand",
-    "Bastian Mawatha Bus Stop",
-    "Technical Junction Maradana",
-    "Dsl Roundabout Bus Stop",
-    "Elphinston Maradana",
-    "Maradana Railway Station",
-    "Elphinstone Bus Stop",
-    "Maradana Police Bus Stop",
-    "Ananda College Bus Stop",
-    "Punchi Borella Junction Bus Stop",
-    "Borella Bus Stop",
-    "Borella",
-    "Borella Cemetery Bus Stop"
+  "halt_id_list": [
+    "pettah-bus-stop-6.9340N-79.8502E",
+    "pettah-6.9340N-79.8500E",
+    "colombo-central-bus-stand-6.9337N-79.8563E",
+    "bastian-mawatha-bus-stop-6.9322N-79.8576E",
+    "technical-junction-maradana-6.9320N-79.8602E",
+    "dsl-roundabout-bus-stop-6.9340N-79.8652E",
+    "elphinston-maradana-6.9294N-79.8646E",
+    "maradana-railway-station-6.9295N-79.8651E",
+    "elphinstone-bus-stop-6.9293N-79.8644E",
+    "maradana-police-bus-stop-6.9277N-79.8649E",
+    "ananda-college-bus-stop-6.9244N-79.8681E",
+    "punchi-borella-junction-bus-stop-6.9214N-79.8710E",
+    "borella-bus-stop-6.9155N-79.8767E",
+    "borella-6.9150N-79.8780E",
+    "borella-cemetery-bus-stop-6.9073N-79.8774E"
   ],
   "latlng_list": [
     [

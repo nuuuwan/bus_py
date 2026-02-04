@@ -1,22 +1,22 @@
 {
   "route_num": "176",
   "direction": "southbound",
-  "halt_name_list": [
-    "Kotahena Bus Stand",
-    "Armour Street Junction Bus Stop",
-    "Elphinstone Bus Stop",
-    "Elphinston Maradana",
-    "Maradana Railway Station",
-    "Maradana Police Bus Stop",
-    "Ananda College Bus Stop",
-    "Punchi Borella Junction Bus Stop",
-    "Borella",
-    "Cotta Rd and Ruhunukala Mawatha Bus Station",
-    "Rajagiriya Bus Stop",
-    "Walikada Bus Station",
-    "Janadipathi Prathamika Bus Stop",
-    "Wimala Wihara Mawatha Bus Stop",
-    "Nugegoda Bus Stop"
+  "halt_id_list": [
+    "kotahena-bus-stand-6.9480N-79.8612E",
+    "armour-street-junction-bus-stop-6.9425N-79.8645E",
+    "elphinstone-bus-stop-6.9293N-79.8644E",
+    "elphinston-maradana-6.9294N-79.8646E",
+    "maradana-railway-station-6.9295N-79.8651E",
+    "maradana-police-bus-stop-6.9277N-79.8649E",
+    "ananda-college-bus-stop-6.9244N-79.8681E",
+    "punchi-borella-junction-bus-stop-6.9214N-79.8710E",
+    "borella-6.9150N-79.8780E",
+    "cotta-rd-and-ruhunukala-mawatha-bus-station-6.9138N-79.8830E",
+    "rajagiriya-bus-stop-6.9085N-79.8934E",
+    "walikada-bus-station-6.9074N-79.8954E",
+    "janadipathi-prathamika-bus-stop-6.8931N-79.8891E",
+    "wimala-wihara-mawatha-bus-stop-6.8918N-79.8883E",
+    "nugegoda-bus-stop-6.8716N-79.8898E"
   ],
   "latlng_list": [
     [

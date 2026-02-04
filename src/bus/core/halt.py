@@ -18,17 +18,27 @@ class Halt:
     HALTS_DATA_PATH = os.path.join("data", "halts.json")
     DIR_IMAGES_HALTS = os.path.join("images", "halts")
 
-    def __init__(self, name: str, latlng: tuple[float, float]):
+    def __init__(self, id:str, name: str, latlng: tuple[float, float]):
+        self.id = id
+        assert id == self.get_id(name, latlng), f"ID mismatch: {id} != {self.get_id(name, latlng)}"
         self.name = name
         self.latlng = latlng
 
+
+    @classmethod 
+    def get_id(cls, name: str, latlng: tuple[float, float]) -> str:
+        name_kebab = name.lower().replace(" ", "-").replace('.', '')
+        return f"{name_kebab}-{latlng[0]:.4f}N-{latlng[1]:.4f}E"
+
     @classmethod
     def from_dict(cls, data: dict) -> "Halt":
-        return cls(name=data["name"], latlng=tuple(data["latlng"]))
+        if 'id' not in data:
+            data['id'] = cls.get_id(data['name'], tuple(data['latlng']))
+        return cls(id=data["id"], name=data["name"], latlng=tuple(data["latlng"]))
 
     def to_dict(self) -> dict:
-        return {"name": self.name, "latlng": list(self.latlng)}
-
+        return {"id": self.id, "name": self.name, "latlng": list(self.latlng)}
+    
     @classmethod
     @cache
     def list_all(cls) -> list["Halt"]:
@@ -43,12 +53,12 @@ class Halt:
 
         halt_data_list = GoogleMapsUtils.get_halts()
 
-        seen_names = set()
+        seen_ids = set()
         unique_halt_data_list = []
         for halt_data in halt_data_list:
-            name = halt_data["name"]
-            if name not in seen_names:
-                seen_names.add(name)
+            id = halt_data["id"]
+            if id not in seen_ids:
+                seen_ids.add(id)
                 unique_halt_data_list.append(halt_data)
 
         halts = [cls.from_dict(data) for data in unique_halt_data_list]

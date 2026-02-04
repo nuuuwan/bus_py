@@ -1,20 +1,20 @@
 {
   "route_num": "138",
   "direction": "southbound",
-  "halt_name_list": [
-    "Pettah Bus Stop",
-    "Pettah",
-    "Pettah Slt Bus Stop",
-    "Staple Street Bus Stop",
-    "Adroit International Maritime (Pvt) Ltd",
-    "Hyde Park Bus Stop",
-    "Ibbanwala",
-    "Colombo Public Library Bus Stop",
-    "Nelum Pokuna Bus Stop",
-    "Police Park Bus Stop",
-    "Havelock City Bus Stop",
-    "Delkanda Bus Stop",
-    "Colombo-Batticaloa Hwy Bus Station"
+  "halt_id_list": [
+    "pettah-bus-stop-6.9340N-79.8502E",
+    "pettah-6.9340N-79.8500E",
+    "pettah-slt-bus-stop-6.9335N-79.8467E",
+    "staple-street-bus-stop-6.9213N-79.8560E",
+    "adroit-international-maritime-(pvt)-ltd-6.9197N-79.8589E",
+    "hyde-park-bus-stop-6.9196N-79.8595E",
+    "ibbanwala-6.9190N-79.8615E",
+    "colombo-public-library-bus-stop-6.9128N-79.8580E",
+    "nelum-pokuna-bus-stop-6.9102N-79.8636E",
+    "police-park-bus-stop-6.8933N-79.8619E",
+    "havelock-city-bus-stop-6.8829N-79.8688E",
+    "delkanda-bus-stop-6.8629N-79.9015E",
+    "colombo-batticaloa-hwy-bus-station-6.8483N-79.9257E"
   ],
   "latlng_list": [
     [

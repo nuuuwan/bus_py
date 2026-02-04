@@ -1,16 +1,16 @@
 {
   "route_num": "138",
   "direction": "northbound",
-  "halt_name_list": [
-    "Colombo-Batticaloa Hwy Bus Station",
-    "Delkanda Bus Stop",
-    "Havelock City Bus Stop",
-    "Town Hall Bus Stop",
-    "Hyde Park Bus Stop",
-    "107 Bus Station",
-    "Pettah Slt Bus Stop",
-    "Pettah Bus Stop",
-    "Pettah"
+  "halt_id_list": [
+    "colombo-batticaloa-hwy-bus-station-6.8483N-79.9257E",
+    "delkanda-bus-stop-6.8629N-79.9015E",
+    "havelock-city-bus-stop-6.8829N-79.8688E",
+    "town-hall-bus-stop-6.9168N-79.8631E",
+    "hyde-park-bus-stop-6.9196N-79.8595E",
+    "107-bus-station-6.9341N-79.8459E",
+    "pettah-slt-bus-stop-6.9335N-79.8467E",
+    "pettah-bus-stop-6.9340N-79.8502E",
+    "pettah-6.9340N-79.8500E"
   ],
   "latlng_list": [
     [

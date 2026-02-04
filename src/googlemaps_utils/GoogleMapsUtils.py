@@ -142,7 +142,7 @@ class GoogleMapsUtils:
         halts = []
         while "next_page_token" in places_result:
             time.sleep(2)
-            log.info("🌐 Calling gmaps.places_nearby")
+            log.info("🌐 Calling gmaps.places_nearby with page_token")
             places_result = gmaps.places_nearby(
                 page_token=places_result["next_page_token"]
             )

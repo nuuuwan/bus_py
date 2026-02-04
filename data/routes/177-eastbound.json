@@ -1,18 +1,18 @@
 {
   "route_num": "177",
   "direction": "eastbound",
-  "halt_name_list": [
-    "Colombo Public Library Bus Stop",
-    "Nelum Pokuna Bus Stop",
-    "Rajagiriya Bus Stop",
-    "HSBC Bus Stop",
-    "Sethsiripaya Bus Stop",
-    "Battaramulla Junction Bus Station",
-    "Ganahena Bus Stop",
-    "Koswatta Bus Station",
-    "Bus Halt",
-    "Kotte-Bope Road",
-    "Kaduwela"
+  "halt_id_list": [
+    "colombo-public-library-bus-stop-6.9128N-79.8580E",
+    "nelum-pokuna-bus-stop-6.9102N-79.8636E",
+    "rajagiriya-bus-stop-6.9085N-79.8934E",
+    "hsbc-bus-stop-6.9066N-79.9019E",
+    "sethsiripaya-bus-stop-6.9023N-79.9152E",
+    "battaramulla-junction-bus-station-6.9020N-79.9174E",
+    "ganahena-bus-stop-6.9042N-79.9239E",
+    "koswatta-bus-station-6.9067N-79.9288E",
+    "bus-halt-6.9084N-79.9368E",
+    "kotte-bope-road-6.9084N-79.9384E",
+    "kaduwela-6.9365N-79.9831E"
   ],
   "latlng_list": [
     [

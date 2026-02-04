@@ -70,7 +70,7 @@ def main():
         )
         route.draw()
 
-    Route.summarize_all()
+    Route.aggregate()
 
 
 if __name__ == "__main__":

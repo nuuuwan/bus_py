@@ -1,23 +1,23 @@
 {
   "route_num": "101",
   "direction": "southbound",
-  "halt_name_list": [
-    "Pettah Bus Stop",
-    "Pettah",
-    "Pettah Slt Bus Stop",
-    "Nawaloka Bus Stop",
-    "Gangarama Bus Stop",
-    "Seema Malaka Bus Stop",
-    "Colombo Public Library Bus Stop",
-    "Liberty Bus Stop",
-    "British Council Bus Stop",
-    "\u0db6\u0db8\u0dca\u0db6\u0dbd\u0db4\u0dd2\u0da7\u0dd2\u0dba \u0dc4\u0db1\u0dca\u0daf\u0dd2\u0dba\u0dda \u0db6\u0dc3\u0dca \u0db1\u0dd0\u0dc0\u0dad\u0dd4\u0db8\u0dca\u0db4\u0dc5",
-    "Mangala Bus Stop",
-    "Roxy Garden Bus Stop",
-    "Dehiwala Junction Bus Stop",
-    "Cemetery Bus Stop",
-    "Mt. Lavinia Bus Stop",
-    "Maliban Junction Bus Stop"
+  "halt_id_list": [
+    "pettah-bus-stop-6.9340N-79.8502E",
+    "pettah-6.9340N-79.8500E",
+    "pettah-slt-bus-stop-6.9335N-79.8467E",
+    "nawaloka-bus-stop-6.9220N-79.8531E",
+    "gangarama-bus-stop-6.9190N-79.8538E",
+    "seema-malaka-bus-stop-6.9171N-79.8555E",
+    "colombo-public-library-bus-stop-6.9128N-79.8580E",
+    "liberty-bus-stop-6.9099N-79.8523E",
+    "british-council-bus-stop-6.8984N-79.8560E",
+    "\u0db6\u0db8\u0dca\u0db6\u0dbd\u0db4\u0dd2\u0da7\u0dd2\u0dba-\u0dc4\u0db1\u0dca\u0daf\u0dd2\u0dba\u0dda-\u0db6\u0dc3\u0dca-\u0db1\u0dd0\u0dc0\u0dad\u0dd4\u0db8\u0dca\u0db4\u0dc5-6.8942N-79.8575E",
+    "mangala-bus-stop-6.8692N-79.8624E",
+    "roxy-garden-bus-stop-6.8651N-79.8632E",
+    "dehiwala-junction-bus-stop-6.8504N-79.8661E",
+    "cemetery-bus-stop-6.8447N-79.8662E",
+    "mt-lavinia-bus-stop-6.8330N-79.8674E",
+    "maliban-junction-bus-stop-6.8193N-79.8735E"
   ],
   "latlng_list": [
     [
