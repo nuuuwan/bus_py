@@ -3,14 +3,14 @@
     "route_num": "103",
     "direction": "southbound",
     "halt_id_list": [
-      "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-6.9340N-79.8500E",
+      "pettah-bus-stop-6.9340N-79.8502E",
       "colombo-central-bus-stand-6.9337N-79.8563E",
       "bastian-mawatha-bus-stop-6.9322N-79.8576E",
       "technical-junction-maradana-6.9320N-79.8602E",
       "dsl-roundabout-bus-stop-6.9340N-79.8652E",
-      "elphinston-maradana-6.9294N-79.8646E",
       "maradana-railway-station-6.9295N-79.8651E",
+      "elphinston-maradana-6.9294N-79.8646E",
       "elphinstone-bus-stop-6.9293N-79.8644E",
       "maradana-police-bus-stop-6.9277N-79.8649E",
       "ananda-college-bus-stop-6.9244N-79.8681E",
@@ -1130,8 +1130,8 @@
     "halt_id_list": [
       "kotahena-bus-stand-6.9480N-79.8612E",
       "armour-street-junction-bus-stop-6.9425N-79.8645E",
-      "elphinstone-bus-stop-6.9293N-79.8644E",
       "elphinston-maradana-6.9294N-79.8646E",
+      "elphinstone-bus-stop-6.9293N-79.8644E",
       "maradana-railway-station-6.9295N-79.8651E",
       "maradana-police-bus-stop-6.9277N-79.8649E",
       "ananda-college-bus-stop-6.9244N-79.8681E",
@@ -2498,8 +2498,8 @@
       "hyde-park-bus-stop-6.9196N-79.8595E",
       "107-bus-station-6.9341N-79.8459E",
       "pettah-slt-bus-stop-6.9335N-79.8467E",
-      "pettah-bus-stop-6.9340N-79.8502E",
-      "pettah-6.9340N-79.8500E"
+      "pettah-6.9340N-79.8500E",
+      "pettah-bus-stop-6.9340N-79.8502E"
     ],
     "latlng_list": [
       [
@@ -5548,7 +5548,9 @@
       "maradana-police-bus-stop-6.9277N-79.8649E",
       "maradana-bus-stop-6.9297N-79.8631E",
       "technical-junction-maradana-6.9320N-79.8602E",
-      "bastian-mawatha-bus-stop-6.9322N-79.8576E"
+      "bastian-mawatha-bus-stop-6.9322N-79.8576E",
+      "bastian-mawatha-bus-stand-6.9336N-79.8556E",
+      "colombo-central-bus-stand-6.9337N-79.8563E"
     ],
     "latlng_list": [
       [
@@ -5940,8 +5942,28 @@
         79.85761
       ],
       [
-        6.93221,
-        79.85762
+        6.93268,
+        79.85714
+      ],
+      [
+        6.93382,
+        79.85594
+      ],
+      [
+        6.93398,
+        79.85575
+      ],
+      [
+        6.93409,
+        79.8555
+      ],
+      [
+        6.93421,
+        79.85515
+      ],
+      [
+        6.93439,
+        79.85462
       ]
     ]
   },
@@ -6384,8 +6406,8 @@
     "route_num": "138",
     "direction": "southbound",
     "halt_id_list": [
-      "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-6.9340N-79.8500E",
+      "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-slt-bus-stop-6.9335N-79.8467E",
       "staple-street-bus-stop-6.9213N-79.8560E",
       "adroit-international-maritime-(pvt)-ltd-6.9197N-79.8589E",
@@ -7955,7 +7977,6 @@
       "walikada-bus-station-6.9074N-79.8954E",
       "rajagiriya-bus-stop-6.9085N-79.8934E",
       "cotta-rd-and-ruhunukala-mawatha-bus-station-6.9138N-79.8830E",
-      "borella-6.9150N-79.8780E",
       "punchi-borella-junction-bus-stop-6.9214N-79.8710E",
       "ananda-college-bus-stop-6.9244N-79.8681E",
       "maradana-police-bus-stop-6.9277N-79.8649E",
@@ -15639,8 +15660,8 @@
       "unity-plaza-bus-stop-6.8933N-79.8554E",
       "acbt-bus-stop-6.9053N-79.8515E",
       "107-bus-station-6.9341N-79.8459E",
-      "pettah-bus-stop-6.9340N-79.8502E",
-      "pettah-6.9340N-79.8500E"
+      "pettah-6.9340N-79.8500E",
+      "pettah-bus-stop-6.9340N-79.8502E"
     ],
     "latlng_list": [
       [
@@ -18040,8 +18061,8 @@
     "route_num": "101",
     "direction": "southbound",
     "halt_id_list": [
-      "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-6.9340N-79.8500E",
+      "pettah-bus-stop-6.9340N-79.8502E",
       "pettah-slt-bus-stop-6.9335N-79.8467E",
       "nawaloka-bus-stop-6.9220N-79.8531E",
       "gangarama-bus-stop-6.9190N-79.8538E",

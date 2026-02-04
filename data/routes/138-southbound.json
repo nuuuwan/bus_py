@@ -2,8 +2,8 @@
   "route_num": "138",
   "direction": "southbound",
   "halt_id_list": [
-    "pettah-bus-stop-6.9340N-79.8502E",
     "pettah-6.9340N-79.8500E",
+    "pettah-bus-stop-6.9340N-79.8502E",
     "pettah-slt-bus-stop-6.9335N-79.8467E",
     "staple-street-bus-stop-6.9213N-79.8560E",
     "adroit-international-maritime-(pvt)-ltd-6.9197N-79.8589E",

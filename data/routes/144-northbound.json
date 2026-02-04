@@ -8,7 +8,9 @@
     "maradana-police-bus-stop-6.9277N-79.8649E",
     "maradana-bus-stop-6.9297N-79.8631E",
     "technical-junction-maradana-6.9320N-79.8602E",
-    "bastian-mawatha-bus-stop-6.9322N-79.8576E"
+    "bastian-mawatha-bus-stop-6.9322N-79.8576E",
+    "bastian-mawatha-bus-stand-6.9336N-79.8556E",
+    "colombo-central-bus-stand-6.9337N-79.8563E"
   ],
   "latlng_list": [
     [
@@ -400,8 +402,28 @@
       79.85761
     ],
     [
-      6.93221,
-      79.85762
+      6.93268,
+      79.85714
+    ],
+    [
+      6.93382,
+      79.85594
+    ],
+    [
+      6.93398,
+      79.85575
+    ],
+    [
+      6.93409,
+      79.8555
+    ],
+    [
+      6.93421,
+      79.85515
+    ],
+    [
+      6.93439,
+      79.85462
     ]
   ]
 }

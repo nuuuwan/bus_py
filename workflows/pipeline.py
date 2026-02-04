@@ -1,7 +1,15 @@
+import os
+import shutil
+
 from bus import Halt, Route
 
 
 def main():
+
+    shutil.rmtree(os.path.join("data", "routes"), ignore_errors=True)
+    shutil.rmtree(os.path.join("data", "routes.json"), ignore_errors=True)
+    shutil.rmtree(os.path.join("images"), ignore_errors=True)
+
     Halt.build_all()
     Halt.draw_all()
 
