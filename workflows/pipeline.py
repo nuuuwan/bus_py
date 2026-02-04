@@ -5,109 +5,71 @@ def main():
     Halt.build_all()
     Halt.draw_all()
 
-    for route_num, direction, start_location, end_location in [
-        # 101
+    for route_num, start_location1, end_location1, is_north_south in [
         (
             "101",
-            "southbound",
             "Pettah Bus Stop",
             "Maliban Junction Bus Stop",
-        ),
-        (
-            "101",
-            "northbound",
-            "Maliban Junction Bus Stop",
-            "Pettah Bus Stop",
-        ),
-        # 103
-        (
-            "103",
-            "southbound",
-            "Pettah Bus Stop",
-            "Narehenpita Railway Bus Stop",
+            True,
         ),
         (
             "103",
-            "northbound",
-            "Narehenpita Railway Bus Stop",
             "Pettah Bus Stop",
-        ),
-        # 120
-        (
-            "120",
-            "southbound",
-            "Colombo Central Bus Stand",
-            "Piliyandala Bus Stand",
+            "Narehenpita Railway Bus Stop",
+            True,
         ),
         (
             "120",
-            "northbound",
-            "Piliyandala Bus Stand",
             "Colombo Central Bus Stand",
+            "Piliyandala Bus Stand",
+            True,
         ),
-        # 138
-        ("138", "southbound", "Pettah Bus Stop", "Homagama Bus Station"),
-        ("138", "northbound", "Homagama Bus Station", "Pettah Bus Stop"),
-        # 143
+        ("138", "Pettah Bus Stop", "Homagama Bus Station", True),
         (
             "143",
-            "eastbound",
             "Colombo Central Bus Stop",
             "Hanwella Bus Stand",
-        ),
-        (
-            "143",
-            "westbound",
-            "Hanwella Bus Stand",
-            "Colombo Central Bus Stop",
-        ),
-        # 144
-        (
-            "144",
-            "southbound",
-            "Colombo Central Bus Stop",
-            "Rajagiriya Bus Stop",
+            False,
         ),
         (
             "144",
-            "northbound",
+            "Colombo Central Bus Stop",
             "Rajagiriya Bus Stop",
-            "Bastian Mawatha Bus Stop",
-        ),
-        # 176
-        (
-            "176",
-            "southbound",
-            "Kotahena Bus Stop",
-            "Karagampitiya Bus Station",
+            True,
         ),
         (
             "176",
-            "northbound",
-            "Karagampitiya Bus Station",
             "Kotahena Bus Stop",
-        ),
-        # 177
-        (
-            "177",
-            "eastbound",
-            "Kollupitiya Supermarket Bus Stop",
-            "Kaduwela",
+            "Karagampitiya Bus Station",
+            True,
         ),
         (
             "177",
-            "westbound",
-            "Kaduwela",
             "Kollupitiya Supermarket Bus Stop",
+            "Kaduwela",
+            False,
         ),
     ]:
-        route = Route.build(
-            route_num,
-            direction,
-            start_location,
-            end_location,
+
+        directions = (
+            ["southbound", "northbound"]
+            if is_north_south
+            else ["eastbound", "westbound"]
         )
-        route.draw()
+        for i_direction, direction in enumerate(directions, start=1):
+            start_location, end_location = (
+                [start_location1, end_location1]
+                if (i_direction == 1)
+                else [end_location1, start_location1]
+            )
+            route = Route.build(
+                route_num,
+                direction,
+                start_location,
+                end_location,
+            )
+
+            route.draw()
 
     Route.aggregate()
 
