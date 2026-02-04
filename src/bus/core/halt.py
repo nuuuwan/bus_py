@@ -186,7 +186,6 @@ class Halt:
         halt_dicts.sort(key=lambda x: x['name'])
         
         cls.__cleanup_halt_dicts(halt_dicts)
-        
         JSONFile(cls.HALTS_DATA_PATH).write(halt_dicts)
         log.info(f"Added halt {name} at {latlng}")
 
