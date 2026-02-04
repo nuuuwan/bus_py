@@ -57,7 +57,7 @@ def main():
         ),
         (
             "177",
-            "northbound",
+            "westbound",
             "Kaduwela",
             "Kollupitiya Supermarket Bus Stop",
         ),
