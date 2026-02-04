@@ -2,7 +2,6 @@ import os
 import warnings
 from functools import cache
 from math import asin, cos, radians, sin, sqrt
-from urllib.parse import unquote, urlparse
 
 import contextily as ctx
 import matplotlib.pyplot as plt
@@ -171,9 +170,7 @@ class Halt:
 
 
     @classmethod
-    def add_from_url(cls, url):
-        name, latlng = cls.__parse_url(url)
-        
+    def add_new_halt(cls, name: str, latlng: tuple[float, float]):
         halts = cls.list_all()
         halt_dicts = [h.to_dict() for h in halts]
         
@@ -198,35 +195,5 @@ class Halt:
         for halt_dict in halt_dicts:
             lat, lng = halt_dict['latlng']
             halt_dict['latlng'] = [round(lat, 4), round(lng, 4)]
-
-    @classmethod
-    def __parse_url(cls, url):
-        parsed = urlparse(url)
-        path_parts = parsed.path.split('/')
-        
-        name = cls.__extract_name(path_parts)
-        latlng = cls.__extract_latlng(path_parts)
-        
-        return name, latlng
-    
-    @classmethod
-    def __extract_name(cls, path_parts):
-        for part in path_parts:
-            if part.startswith('search'):
-                continue
-            if '+' in part or '%20' in part:
-                name = unquote(part).replace('+', ' ')
-                return name
-        raise ValueError("Could not extract name from URL")
-    
-    @classmethod
-    def __extract_latlng(cls, path_parts):
-        for part in path_parts:
-            if part.startswith('@'):
-                coords = part[1:].split(',')[:2]
-                lat = float(coords[0])
-                lng = float(coords[1])
-                return (lat, lng)
-        raise ValueError("Could not extract coordinates from URL")
 
         
