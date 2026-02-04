@@ -2496,7 +2496,7 @@
       "havelock-city-bus-stop-6.8829N-79.8688E",
       "town-hall-bus-stop-6.9168N-79.8631E",
       "hyde-park-bus-stop-6.9196N-79.8595E",
-      "107-bus-station-6.9341N-79.8459E",
+      "lotus-road---slt-building-6.9342N-79.8461E",
       "pettah-slt-bus-stop-6.9335N-79.8467E",
       "pettah-6.9340N-79.8500E",
       "pettah-bus-stop-6.9340N-79.8502E"
@@ -9492,7 +9492,7 @@
       "bastian-mawatha-bus-stop-6.9322N-79.8576E",
       "technical-junction-maradana-6.9320N-79.8602E",
       "dsl-roundabout-bus-stop-6.9340N-79.8652E",
-      "140-bus-station-6.9370N-79.8964E",
+      "avissawella-rd---wellampitiya-post-office-6.9370N-79.8964E",
       "kaduwela-6.9365N-79.9831E"
     ],
     "latlng_list": [
@@ -12678,6 +12678,7 @@
       "jethawanaramaya-6.9270N-79.8612E",
       "lotus-tower-bus-stop-6.9279N-79.8592E",
       "lake-house-bus-stop-6.9326N-79.8479E",
+      "lotus-road---slt-building-6.9342N-79.8461E",
       "pettah-6.9340N-79.8500E",
       "pettah-bus-stop-6.9340N-79.8502E"
     ],
@@ -14205,7 +14206,7 @@
     "direction": "westbound",
     "halt_id_list": [
       "kaduwela-6.9365N-79.9831E",
-      "140-bus-station-6.9370N-79.8964E",
+      "avissawella-rd---wellampitiya-post-office-6.9370N-79.8964E",
       "colombo-6.9350N-79.8552E",
       "bastian-mawatha-bus-stand-6.9336N-79.8556E",
       "colombo-central-bus-stand-6.9337N-79.8563E"
@@ -15658,8 +15659,8 @@
       "mangala-bus-stop-6.8692N-79.8624E",
       "bambalapitiya-flats-bus-stop-6.8839N-79.8584E",
       "unity-plaza-bus-stop-6.8933N-79.8554E",
-      "acbt-bus-stop-6.9053N-79.8515E",
-      "107-bus-station-6.9341N-79.8459E",
+      "duplication-rd---acbt-bus-stop-6.9053N-79.8515E",
+      "lotus-road---slt-building-6.9342N-79.8461E",
       "pettah-6.9340N-79.8500E",
       "pettah-bus-stop-6.9340N-79.8502E"
     ],

@@ -1,26 +1,10 @@
 [
   {
-    "id": "107-bus-station-6.9341N-79.8459E",
-    "name": "107 Bus Station",
-    "latlng": [
-      6.9341,
-      79.8459
-    ]
-  },
-  {
     "id": "119-maharagama---nugegoda-bus-station-6.8448N-79.9258E",
     "name": "119 Maharagama - Nugegoda Bus Station",
     "latlng": [
       6.8448,
       79.9258
-    ]
-  },
-  {
-    "id": "140-bus-station-6.9370N-79.8964E",
-    "name": "140 Bus Station",
-    "latlng": [
-      6.937,
-      79.8964
     ]
   },
   {
@@ -37,14 +21,6 @@
     "latlng": [
       6.9558,
       79.8884
-    ]
-  },
-  {
-    "id": "acbt-bus-stop-6.9053N-79.8515E",
-    "name": "ACBT Bus Stop",
-    "latlng": [
-      6.9053,
-      79.8515
     ]
   },
   {
@@ -101,6 +77,14 @@
     "latlng": [
       6.8683,
       79.8624
+    ]
+  },
+  {
+    "id": "avissawella-rd---wellampitiya-post-office-6.9370N-79.8964E",
+    "name": "Avissawella Rd - Wellampitiya Post Office",
+    "latlng": [
+      6.937,
+      79.8964
     ]
   },
   {
@@ -357,6 +341,14 @@
     "latlng": [
       6.934,
       79.8652
+    ]
+  },
+  {
+    "id": "duplication-rd---acbt-bus-stop-6.9053N-79.8515E",
+    "name": "Duplication Rd - ACBT Bus Stop",
+    "latlng": [
+      6.9053,
+      79.8515
     ]
   },
   {
@@ -741,6 +733,14 @@
     "latlng": [
       6.9099,
       79.8523
+    ]
+  },
+  {
+    "id": "lotus-road---slt-building-6.9342N-79.8461E",
+    "name": "Lotus Road - SLT Building",
+    "latlng": [
+      6.9342,
+      79.8461
     ]
   },
   {
