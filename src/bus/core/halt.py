@@ -195,5 +195,6 @@ class Halt:
         for halt_dict in halt_dicts:
             lat, lng = halt_dict['latlng']
             halt_dict['latlng'] = [round(lat, 4), round(lng, 4)]
+            halt_dict['id'] = cls.get_id(halt_dict['name'], tuple(halt_dict['latlng']))
 
         
