@@ -32,6 +32,19 @@ def main():
             "Narehenpita Railway Bus Stop",
             "Pettah Bus Stop",
         ),
+        # 120
+        (
+            "120",
+            "southbound",
+            "Colombo Central Bus Stand",
+            "Piliyandala Bus Stand",
+        ),
+        (
+            "120",
+            "northbound",
+            "Piliyandala Bus Stand",
+            "Colombo Central Bus Stand",
+        ),
         # 138
         ("138", "southbound", "Pettah Bus Stop", "Homagama Bus Station"),
         ("138", "northbound", "Homagama Bus Station", "Pettah Bus Stop"),
