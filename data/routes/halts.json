@@ -160,8 +160,8 @@
     "latlng": [6.9337, 79.8563]
   },
   {
-    "id": "colombo-public-library-bus-stop-6.9128N-79.8580E",
-    "name": "Colombo Public Library Bus Stop",
+    "id": "marcus-fernando-mw-war-memorial-6.9129N-79.8580E",
+    "name": "Marcus Fernando Mw War Memorial",
     "latlng": [6.9128, 79.858]
   },
   {
@@ -290,7 +290,7 @@
     "latlng": [6.9066, 79.9019]
   },
   {
-    "id": "havelock-city-bus-stop-6.8829N-79.8688E",
+    "id": "havelock-rd-havelock-city-6.8829N-79.8688E",
     "name": "Havelock City Bus Stop",
     "latlng": [6.8829, 79.8688]
   },
@@ -635,8 +635,8 @@
     "latlng": [6.9335, 79.8467]
   },
   {
-    "id": "police-park-bus-stop-6.8933N-79.8619E",
-    "name": "Police Park Bus Stop",
+    "id": "havelock-rd-police-park-6.8933N-79.8619E",
+    "name": "Havelock Rd Police Park",
     "latlng": [6.8933, 79.8619]
   },
   {
