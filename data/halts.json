@@ -60,8 +60,8 @@
     "latlng": [6.8839, 79.8584]
   },
   {
-    "id": "baseline-road---narehenpita-post-office-6.8896N-79.8770E",
-    "name": "Baseline Road - Narehenpita Post Office",
+    "id": "baseline-rd---narehenpita-post-office-6.8896N-79.8770E",
+    "name": "Baseline Rd - Narehenpita Post Office",
     "latlng": [6.8896, 79.877]
   },
   {
@@ -335,9 +335,49 @@
     "latlng": [6.8893, 79.8641]
   },
   {
-    "id": "havelock-road-sri-vihar-6.8958N-79.8607E",
-    "name": "Havelock Road Sri Vihar",
+    "id": "havelock-rd-sri-vihar-6.8958N-79.8607E",
+    "name": "Havelock Rd Sri Vihar",
     "latlng": [6.8958, 79.8607]
+  },
+  {
+    "id": "high-level-rd-arpico-navinna-6.8525N-79.9168E",
+    "name": "High Level Rd Arpico Navinna",
+    "latlng": [6.8525, 79.9168]
+  },
+  {
+    "id": "high-level-rd-anula-6.8723N-79.8839E",
+    "name": "High Level Rd Anula",
+    "latlng": [6.8723, 79.8839]
+  },
+  {
+    "id": "high-level-rd-dehiwala-canal-6.8788N-79.8735E",
+    "name": "High Level Rd Dehiwala Canal",
+    "latlng": [6.8788, 79.8735]
+  },
+  {
+    "id": "high-level-rd-glomark-delkanda-6.8616N-79.9046E",
+    "name": "High Level Rd Glomark Delkanda",
+    "latlng": [6.8616, 79.9046]
+  },
+  {
+    "id": "high-level-rd-no-limit-6.8668N-79.8935E",
+    "name": "High Level Rd No Limit",
+    "latlng": [6.8668, 79.8935]
+  },
+  {
+    "id": "high-level-rd-opp-kandy-6.8737N-79.8820E",
+    "name": "High Level Rd Opp Kandy",
+    "latlng": [6.8737, 79.882]
+  },
+  {
+    "id": "high-level-rd-x-taxila-pl-6.8786N-79.8755E",
+    "name": "High Level Rd x Taxila Pl",
+    "latlng": [6.8786, 79.8755]
+  },
+  {
+    "id": "high-level-rd-x-wijerama-ln-6.8601N-79.9065E",
+    "name": "High Level Rd x Wijerama Ln",
+    "latlng": [6.8601, 79.9065]
   },
   {
     "id": "homagama-bus-station-6.8398N-79.9992E",
@@ -480,8 +520,8 @@
     "latlng": [6.948, 79.8612]
   },
   {
-    "id": "kotte-bope-road-6.9084N-79.9384E",
-    "name": "Kotte-Bope Road",
+    "id": "kotte-bope-rd-6.9084N-79.9384E",
+    "name": "Kotte-Bope Rd",
     "latlng": [6.9084, 79.9384]
   },
   {
@@ -495,8 +535,8 @@
     "latlng": [6.9099, 79.8523]
   },
   {
-    "id": "lotus-road---slt-building-6.9342N-79.8461E",
-    "name": "Lotus Road - SLT Building",
+    "id": "lotus-rd---slt-building-6.9342N-79.8461E",
+    "name": "Lotus Rd - SLT Building",
     "latlng": [6.9342, 79.8461]
   },
   {
@@ -610,8 +650,8 @@
     "latlng": [6.833, 79.8674]
   },
   {
-    "id": "nagoda-church-road-7.0353N-79.8988E",
-    "name": "Nagoda Church Road",
+    "id": "nagoda-church-rd-7.0353N-79.8988E",
+    "name": "Nagoda Church Rd",
     "latlng": [7.0353, 79.8988]
   },
   {

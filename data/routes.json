@@ -681,7 +681,7 @@
       "havelock-rd-havelock-city-6.8829N-79.8688E",
       "town-hall-bus-stop-6.9168N-79.8631E",
       "union-place-singer-6.9196N-79.8595E",
-      "lotus-road---slt-building-6.9342N-79.8461E",
+      "lotus-rd---slt-building-6.9342N-79.8461E",
       "pettah-slt-bus-stop-6.9335N-79.8467E",
       "pettah-6.9340N-79.8500E",
       "pettah-bus-stop-6.9340N-79.8502E"
@@ -2900,7 +2900,7 @@
     "direction": "westbound",
     "halt_id_list": [
       "kaduwela-6.9365N-79.9831E",
-      "kotte-bope-road-6.9084N-79.9384E",
+      "kotte-bope-rd-6.9084N-79.9384E",
       "bus-halt-6.9084N-79.9368E",
       "koswatta-bus-station-6.9067N-79.9288E",
       "ganahena-bus-stop-6.9042N-79.9239E",
@@ -3354,7 +3354,7 @@
       "jethawanaramaya-6.9270N-79.8612E",
       "lotus-tower-bus-stop-6.9279N-79.8592E",
       "lake-house-bus-stop-6.9326N-79.8479E",
-      "lotus-road---slt-building-6.9342N-79.8461E",
+      "lotus-rd---slt-building-6.9342N-79.8461E",
       "pettah-6.9340N-79.8500E",
       "pettah-bus-stop-6.9340N-79.8502E"
     ],
@@ -4125,7 +4125,7 @@
       "bambalapitiya-flats-bus-stop-6.8839N-79.8584E",
       "unity-plaza-bus-stop-6.8933N-79.8554E",
       "duplication-rd---acbt-bus-stop-6.9053N-79.8515E",
-      "lotus-road---slt-building-6.9342N-79.8461E",
+      "lotus-rd---slt-building-6.9342N-79.8461E",
       "pettah-6.9340N-79.8500E",
       "pettah-bus-stop-6.9340N-79.8502E"
     ],
@@ -4368,7 +4368,7 @@
       "ganahena-bus-stop-6.9042N-79.9239E",
       "koswatta-bus-station-6.9067N-79.9288E",
       "bus-halt-6.9084N-79.9368E",
-      "kotte-bope-road-6.9084N-79.9384E",
+      "kotte-bope-rd-6.9084N-79.9384E",
       "kaduwela-6.9365N-79.9831E"
     ],
     "latlng_list": [
