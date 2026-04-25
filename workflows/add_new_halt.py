@@ -16,5 +16,3 @@ if __name__ == "__main__":
     lng = float(sys.argv[3].replace(",", ""))
 
     Halt.add_new_halt(name, (lat, lng))
-
-    Halt.add_new_halt(name, (lat, lng))
