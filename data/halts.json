@@ -295,14 +295,19 @@
     "latlng": [6.9066, 79.9019]
   },
   {
-    "id": "havelock-rd-havelock-city-6.8829N-79.8688E",
-    "name": "Havelock City Bus Stop",
-    "latlng": [6.8829, 79.8688]
-  },
-  {
     "id": "havelock-rd-brc-6.8874N-79.8647E",
     "name": "Havelock Rd BRC",
     "latlng": [6.8874, 79.8647]
+  },
+  {
+    "id": "havelock-rd-bo-tree-junc-6.8813N-79.8702E",
+    "name": "Havelock Rd Bo Tree Junc",
+    "latlng": [6.8813, 79.8702]
+  },
+  {
+    "id": "havelock-rd-havelock-city-6.8829N-79.8688E",
+    "name": "Havelock Rd Havelock City",
+    "latlng": [6.8829, 79.8688]
   },
   {
     "id": "havelock-rd-lumbini-6.8845N-79.8678E",
