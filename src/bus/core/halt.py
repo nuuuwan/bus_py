@@ -196,6 +196,7 @@ class Halt:
         cls.__cleanup_halt_dicts(halt_dicts)
         JSONFile(cls.HALTS_DATA_PATH).write(halt_dicts)
         log.info(f"Added halt {name} at {latlng}")
+        print(new_id)
 
     @classmethod
     def __cleanup_halt_dicts(cls, halt_dicts):
