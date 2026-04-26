@@ -17,6 +17,7 @@ from bus.core.Halt import Halt
 from bus.core.Road import Road
 from bus.core.RoadSegment import RoadSegment
 from utils_future.LatLng import LatLng
+from utils_future.String import String
 
 console = Console()
 
@@ -154,10 +155,19 @@ def _create_road() -> tuple[str, str]:
         f"\n[bold]Add halts for [cyan]{road_name}[/cyan] (leave blank to stop):[/bold]"
     )
     road_index = 0
+    existing_halt_ids = _list_db_ids(HALTS_DIR)
     while True:
         halt_name = Prompt.ask(f"  Halt {road_index}", default="")
         if not halt_name.strip():
             break
+        # Duplicate check: road already has a halt with this name
+        candidate_id = f"{road_id}-{String.to_kebab_case(halt_name.strip())}"
+        if candidate_id in existing_halt_ids:
+            console.print(
+                f"  [red]Halt '[bold]{halt_name.strip()}[/bold]' already exists on this road — skipped.[/red]"
+            )
+            road_index += 1
+            continue
         latlng = _geocode(halt_name.strip(), road_name)
         halt = Halt(
             road_id=road_id,
