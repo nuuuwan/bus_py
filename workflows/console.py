@@ -64,7 +64,62 @@ def _list_db_ids(dir_path: str) -> list[str]:
     )
 
 
-def _geocode(halt_name: str, road_name: str) -> LatLng:
+def _validate_halt_latlng(
+    latlng: LatLng, road_id: str, road_index: int
+) -> list[str]:
+    """Return a list of validation error messages (empty list = valid)."""
+    errors = []
+    all_halt_ids = _list_db_ids(HALTS_DIR)
+
+    # Rule 1: at least 1 m from every existing halt
+    for hid in all_halt_ids:
+        try:
+            hdata = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
+            ll = hdata.get("latlng", {})
+            other = LatLng(lat=ll["lat"], lng=ll["lng"])
+            dist = latlng.distance_m(other)
+            if dist < 1.0:
+                errors.append(
+                    f"Too close to [bold]{hid}[/bold] ({dist:.2f} m — must be ≥ 1 m)"
+                )
+        except (FileNotFoundError, KeyError):
+            continue
+
+    # Rule 2: no more than 1 km from the immediately preceding halt on the same road
+    prev_halts: list[tuple[int, LatLng, str]] = []
+    for hid in all_halt_ids:
+        if not hid.startswith(road_id + "-"):
+            continue
+        try:
+            hdata = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
+            ridx = hdata.get("road_index", 0)
+            if ridx < road_index:
+                ll = hdata.get("latlng", {})
+                prev_halts.append(
+                    (ridx, LatLng(lat=ll["lat"], lng=ll["lng"]), hid)
+                )
+        except (FileNotFoundError, KeyError):
+            continue
+
+    if prev_halts:
+        prev_halts.sort(key=lambda h: h[0])
+        _, prev_latlng, prev_hid = prev_halts[-1]
+        dist = latlng.distance_m(prev_latlng)
+        if dist > 1_000.0:
+            errors.append(
+                f"Too far from previous halt [bold]{prev_hid}[/bold] "
+                f"({dist:.0f} m — must be ≤ 1 km)"
+            )
+
+    return errors
+
+
+def _geocode(
+    halt_name: str,
+    road_name: str,
+    road_id: str | None = None,
+    road_index: int | None = None,
+) -> LatLng:
     """Prompt for comma-separated lat,lng and open in Google Maps to verify."""
     if halt_name.startswith("&"):
         cross = halt_name[1:].strip()
@@ -81,6 +136,12 @@ def _geocode(halt_name: str, road_name: str) -> LatLng:
             try:
                 lat, lng = float(parts[0].strip()), float(parts[1].strip())
                 latlng = LatLng(lat=lat, lng=lng)
+                if road_id is not None and road_index is not None:
+                    errs = _validate_halt_latlng(latlng, road_id, road_index)
+                    if errs:
+                        for e in errs:
+                            console.print(f"  [red]{e}[/red]")
+                        continue
                 return latlng
             except ValueError:
                 pass
@@ -109,9 +170,9 @@ def _select_or_create_road() -> tuple[str, str]:
         console.print(table)
 
         raw = Prompt.ask(
-            "Road (number to select, or [bold]New[/bold])", default="New"
+            "Road (number to select, or [bold]N[/bold]ew)", default="N"
         )
-        if raw.strip().lower() != "new":
+        if raw.strip().upper() != "N":
             try:
                 idx = int(raw.strip()) - 1
                 if 0 <= idx < len(existing):
@@ -152,21 +213,128 @@ def _create_road() -> tuple[str, str]:
     console.print(
         f"\n[bold]Add halts for [cyan]{road_name}[/cyan] (leave blank to stop):[/bold]"
     )
-    road_index = 0
-    existing_halt_ids = _list_db_ids(HALTS_DIR)
+
+    def _next_road_index() -> int:
+        """Highest road_index currently on this road + 1, or 0 if none."""
+        ids = _list_db_ids(HALTS_DIR)
+        indices = []
+        for hid in ids:
+            if not hid.startswith(road_id + "-"):
+                continue
+            try:
+                d = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
+                indices.append(d.get("road_index", 0))
+            except (FileNotFoundError, KeyError):
+                pass
+        return max(indices) + 1 if indices else 0
+
+    halt_counter = 0
     while True:
-        halt_name = Prompt.ask(f"  Halt {road_index}", default="")
+        halt_name = Prompt.ask(
+            f"  Halt name (leave blank to stop)", default=""
+        )
         if not halt_name.strip():
             break
-        # Duplicate check: road already has a halt with this name
+
+        # Duplicate check
+        existing_halt_ids = _list_db_ids(HALTS_DIR)
         candidate_id = f"{road_id}-{String.to_kebab_case(halt_name.strip())}"
         if candidate_id in existing_halt_ids:
             console.print(
                 f"  [red]Halt '[bold]{halt_name.strip()}[/bold]' already exists on this road — skipped.[/red]"
             )
-            road_index += 1
             continue
-        latlng = _geocode(halt_name.strip(), road_name)
+
+        # Ask insert position
+        end_index = _next_road_index()
+        pos_raw = (
+            Prompt.ask(
+                f"  Position — insert [bold]after[/bold] index (number) or [bold]E[/bold]nd (index {end_index})",
+                default="E",
+            )
+            .strip()
+            .upper()
+        )
+
+        if pos_raw == "E":
+            road_index = end_index
+        else:
+            try:
+                after = int(pos_raw)
+                road_index = after + 1
+            except ValueError:
+                console.print(
+                    "[red]Invalid position — appending at end.[/red]"
+                )
+                road_index = end_index
+
+        # Shift existing halts with road_index >= road_index
+        if road_index < end_index:
+            ids_on_road = sorted(
+                [
+                    hid
+                    for hid in _list_db_ids(HALTS_DIR)
+                    if hid.startswith(road_id + "-")
+                ]
+            )
+            for hid in reversed(ids_on_road):
+                try:
+                    hdata = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
+                    if hdata.get("road_index", 0) >= road_index:
+                        hdata["road_index"] += 1
+                        _save_json(
+                            os.path.join(HALTS_DIR, f"{hid}.json"), hdata
+                        )
+                except (FileNotFoundError, KeyError):
+                    pass
+            # Shift road segments on this road
+            for sid in _list_db_ids(ROAD_SEGMENTS_DIR):
+                seg_path = os.path.join(ROAD_SEGMENTS_DIR, f"{sid}.json")
+                try:
+                    seg = _load_json(seg_path)
+                except FileNotFoundError:
+                    continue
+                if seg.get("road_id") != road_id:
+                    continue
+                changed = False
+                if seg.get("start_road_index", 0) >= road_index:
+                    seg["start_road_index"] += 1
+                    changed = True
+                if seg.get("end_road_index", 0) >= road_index:
+                    seg["end_road_index"] += 1
+                    changed = True
+                if changed:
+                    new_seg_id = RoadSegment(
+                        road_id=road_id,
+                        start_road_index=seg["start_road_index"],
+                        end_road_index=seg["end_road_index"],
+                    ).id
+                    os.replace(
+                        seg_path,
+                        os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json"),
+                    )
+                    for rid in _list_db_ids(ROUTES_DIR):
+                        route_path = os.path.join(ROUTES_DIR, f"{rid}.json")
+                        try:
+                            rdata = _load_json(route_path)
+                            seg_list = rdata.get("road_segment_id_list", [])
+                            if sid in seg_list:
+                                seg_list[seg_list.index(sid)] = new_seg_id
+                                rdata["road_segment_id_list"] = seg_list
+                                _save_json(route_path, rdata)
+                        except (FileNotFoundError, KeyError):
+                            continue
+                    _save_json(
+                        os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json"),
+                        seg,
+                    )
+
+        latlng = _geocode(
+            halt_name.strip(),
+            road_name,
+            road_id=road_id,
+            road_index=road_index,
+        )
         halt = Halt(
             road_id=road_id,
             road_index=road_index,
@@ -182,7 +350,7 @@ def _create_road() -> tuple[str, str]:
                 "latlng": {"lat": latlng.lat, "lng": latlng.lng},
             },
         )
-        road_index += 1
+        halt_counter += 1
 
     return road_id, road_name
 
@@ -209,10 +377,10 @@ def _select_or_create_road_segment() -> str:
         console.print(table)
 
         raw = Prompt.ask(
-            "RoadSegment (number to select, or [bold]New[/bold])",
-            default="New",
+            "RoadSegment (number to select, or [bold]N[/bold]ew)",
+            default="N",
         )
-        if raw.strip().lower() != "new":
+        if raw.strip().upper() != "N":
             try:
                 idx = int(raw.strip()) - 1
                 if 0 <= idx < len(existing):
@@ -459,9 +627,9 @@ def _update_halt_latlng() -> None:
         console.print(halt_table)
 
         raw = Prompt.ask(
-            "Select halt (number, or [bold]done[/bold])", default="done"
+            "Select halt (number, or [bold]D[/bold]one)", default="D"
         ).strip()
-        if raw.lower() == "done":
+        if raw.upper() == "D":
             break
         try:
             hidx = int(raw) - 1
@@ -778,7 +946,9 @@ def _insert_halt() -> None:
     road_data = _load_json(os.path.join(ROADS_DIR, f"{road_id}.json"))
     road_name = road_data.get("name", road_id)
     halt_name = Prompt.ask(f"  New halt name at index {insert_at}").strip()
-    latlng = _geocode(halt_name, road_name)
+    latlng = _geocode(
+        halt_name, road_name, road_id=road_id, road_index=insert_at
+    )
     halt = Halt(
         road_id=road_id,
         road_index=insert_at,
@@ -809,12 +979,12 @@ def main() -> None:
     )
 
     _ACTIONS = {
-        "route": ("New Route", _new_route),
-        "add": ("Add Segments to Route", _add_segments_to_route),
-        "halt": ("Update Halt LatLng", _update_halt_latlng),
-        "insert": ("Insert Halt at Index", _insert_halt),
-        "map": ("Render Route Map", _render_route_map),
-        "quit": ("Quit", None),
+        "R": ("New Route", _new_route),
+        "A": ("Add Segments to Route", _add_segments_to_route),
+        "H": ("Update Halt LatLng", _update_halt_latlng),
+        "I": ("Insert Halt at Index", _insert_halt),
+        "M": ("Render Route Map", _render_route_map),
+        "Q": ("Quit", None),
     }
 
     while True:
@@ -826,13 +996,13 @@ def main() -> None:
             table.add_row(cmd, desc)
         console.print(table)
 
-        raw = Prompt.ask("Command", default="route").strip().lower()
+        raw = Prompt.ask("Command", default="R").strip().upper()
         if raw not in _ACTIONS:
             console.print(
                 f"[red]Unknown command '{raw}'. Try: {', '.join(_ACTIONS)}[/red]"
             )
             continue
-        if raw == "quit":
+        if raw == "Q":
             console.print("[dim]Bye.[/dim]")
             break
         _ACTIONS[raw][1]()
