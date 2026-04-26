@@ -62,12 +62,20 @@ def _list_db_ids(dir_path: str) -> list[str]:
 
 
 def _geocode(halt_name: str, road_name: str) -> LatLng:
-    """Return LatLng for a halt, using Google Maps or manual entry."""
+    """Return LatLng for a halt, using Google Maps or manual entry.
+
+    If halt_name starts with '&', it is treated as a cross-street and the
+    query becomes "<road_name> & <cross_street>, Sri Lanka".
+    """
     api_key = os.environ.get("GMAPS_API_KEY", "")
     if api_key:
         try:
             gmaps = googlemaps.Client(key=api_key)
-            query = f"{halt_name}, {road_name}, Sri Lanka"
+            if halt_name.startswith("&"):
+                cross = halt_name[1:].strip()
+                query = f"{road_name} & {cross}, Sri Lanka"
+            else:
+                query = f"{halt_name}, {road_name}, Sri Lanka"
             results = gmaps.geocode(query)
             if results:
                 loc = results[0]["geometry"]["location"]
@@ -300,6 +308,93 @@ def _new_route() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Add segments to existing route
+# ---------------------------------------------------------------------------
+
+
+def _select_route() -> tuple[str, dict] | None:
+    """Prompt user to pick an existing route. Returns (route_id, route_data) or None."""
+    existing = _list_db_ids(ROUTES_DIR)
+    if not existing:
+        console.print("[yellow]No routes in DB yet.[/yellow]")
+        return None
+
+    table = Table(
+        title="Routes in DB", show_header=True, header_style="bold cyan"
+    )
+    table.add_column("#", style="cyan", width=4)
+    table.add_column("Route ID")
+    table.add_column("Segments")
+    for i, rid in enumerate(existing, 1):
+        try:
+            data = _load_json(os.path.join(ROUTES_DIR, f"{rid}.json"))
+            segs = ", ".join(data.get("road_segment_id_list", []))
+        except (FileNotFoundError, KeyError):
+            segs = ""
+        table.add_row(str(i), rid, segs)
+    console.print(table)
+
+    raw = Prompt.ask("Select route (number)")
+    try:
+        idx = int(raw.strip()) - 1
+        if 0 <= idx < len(existing):
+            route_id = existing[idx]
+            return route_id, _load_json(
+                os.path.join(ROUTES_DIR, f"{route_id}.json")
+            )
+    except (ValueError, FileNotFoundError):
+        pass
+    console.print("[red]Invalid selection.[/red]")
+    return None
+
+
+def _add_segments_to_route() -> None:
+    """Add road segments (and their halts) to an existing route."""
+    console.print(Panel("[bold]Add Segments to Route[/bold]", expand=False))
+
+    result = _select_route()
+    if result is None:
+        return
+    route_id, route_data = result
+
+    current_segs: list[str] = route_data.get("road_segment_id_list", [])
+    console.print(
+        f"\n[bold]Route:[/bold] [cyan]{route_id}[/cyan] — "
+        f"{len(current_segs)} segment(s) currently"
+    )
+    for s in current_segs:
+        console.print(f"  [dim]·[/dim] {s}")
+
+    console.print("\n[bold]Add new road segments:[/bold]")
+    while True:
+        seg_id = _select_or_create_road_segment()
+        if seg_id in current_segs:
+            console.print(
+                f"  [yellow]Segment [bold]{seg_id}[/bold] already in route — skipped.[/yellow]"
+            )
+        else:
+            current_segs.append(seg_id)
+            console.print(
+                f"  [green]✓[/green] Added segment [bold]{seg_id}[/bold]"
+            )
+
+        more = Prompt.ask("\nAdd another road segment? [Y/n]", default="Y")
+        if more.strip().lower() == "n":
+            break
+
+    route_data["road_segment_id_list"] = current_segs
+    _save_json(os.path.join(ROUTES_DIR, f"{route_id}.json"), route_data)
+
+    console.print(
+        Panel(
+            f"[bold green]Route [cyan]{route_id}[/cyan] now has "
+            f"{len(current_segs)} segment(s).[/bold green]",
+            expand=False,
+        )
+    )
+
+
+# ---------------------------------------------------------------------------
 # Main menu
 # ---------------------------------------------------------------------------
 
@@ -310,18 +405,31 @@ def main() -> None:
         Panel("[bold blue]Bus Route Data Entry[/bold blue]", expand=False)
     )
 
+    _ACTIONS = {
+        "route": ("New Route", _new_route),
+        "add": ("Add Segments to Route", _add_segments_to_route),
+        "quit": ("Quit", None),
+    }
+
     while True:
         console.print()
-        action = Prompt.ask(
-            "Action",
-            choices=["New Route", "quit"],
-            default="New Route",
-        )
-        if action == "quit":
+        table = Table(show_header=True, header_style="bold cyan", box=None)
+        table.add_column("Command", style="bold yellow", width=8)
+        table.add_column("Action")
+        for cmd, (desc, _) in _ACTIONS.items():
+            table.add_row(cmd, desc)
+        console.print(table)
+
+        raw = Prompt.ask("Command", default="route").strip().lower()
+        if raw not in _ACTIONS:
+            console.print(
+                f"[red]Unknown command '{raw}'. Try: {', '.join(_ACTIONS)}[/red]"
+            )
+            continue
+        if raw == "quit":
             console.print("[dim]Bye.[/dim]")
             break
-        if action == "New Route":
-            _new_route()
+        _ACTIONS[raw][1]()
 
 
 if __name__ == "__main__":
