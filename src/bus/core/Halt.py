@@ -12,10 +12,9 @@ class Halt:
 
     @property
     def id(self) -> str:
-        # E.g. "galle-road-002-colombo-museum-6.927100N-79.861200E"
+        # E.g. "galle-road-002-colombo-museum"
         return IDMixin.from_items(
             self.road_id,
             f"{self.road_index:03d}",
             String.to_kebab_case(self.name),
-            self.latlng.to_kebab_case(),
         )

@@ -8,7 +8,6 @@ import webbrowser
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-import googlemaps
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
@@ -62,46 +61,33 @@ def _list_db_ids(dir_path: str) -> list[str]:
 
 
 def _geocode(halt_name: str, road_name: str) -> LatLng:
-    """Return LatLng for a halt, using Google Maps or manual entry.
+    """Prompt for comma-separated lat,lng and open in Google Maps to verify."""
+    if halt_name.startswith("&"):
+        cross = halt_name[1:].strip()
+        label = f"{road_name} & {cross}"
+    else:
+        label = f"{halt_name}, {road_name}"
 
-    If halt_name starts with '&', it is treated as a cross-street and the
-    query becomes "<road_name> & <cross_street>, Sri Lanka".
-    """
-    api_key = os.environ.get("GMAPS_API_KEY", "")
-    if api_key:
-        try:
-            gmaps = googlemaps.Client(key=api_key)
-            if halt_name.startswith("&"):
-                cross = halt_name[1:].strip()
-                query = f"{road_name} & {cross}, Sri Lanka"
-            else:
-                query = f"{halt_name}, {road_name}, Sri Lanka"
-            results = gmaps.geocode(query)
-            if results:
-                loc = results[0]["geometry"]["location"]
-                latlng = LatLng(lat=loc["lat"], lng=loc["lng"])
-                console.print(
-                    f"  [dim]Geocoded:[/dim] {latlng.lat:.6f}N, {latlng.lng:.6f}E"
-                )
-                maps_url = (
-                    f"https://www.google.com/maps?q={latlng.lat},{latlng.lng}"
-                )
+    while True:
+        raw = Prompt.ask(
+            f"  LatLng for [cyan]{label}[/cyan] (lat, lng)"
+        ).strip()
+        parts = raw.split(",")
+        if len(parts) == 2:
+            try:
+                lat, lng = float(parts[0].strip()), float(parts[1].strip())
+                latlng = LatLng(lat=lat, lng=lng)
+                maps_url = f"https://www.google.com/maps?q={lat},{lng}"
                 console.print(
                     f"  [dim]Opening in Google Maps for verification…[/dim]"
                 )
                 webbrowser.open(maps_url)
                 return latlng
-            console.print("[yellow]Geocoding returned no results.[/yellow]")
-        except Exception as exc:
-            console.print(f"[yellow]Geocoding error: {exc}[/yellow]")
-    else:
+            except ValueError:
+                pass
         console.print(
-            "[yellow]GOOGLE_MAPS_API_KEY not set — enter coordinates manually.[/yellow]"
+            "[red]Enter as two numbers separated by a comma, e.g. 6.9171, 79.8656[/red]"
         )
-
-    lat = float(Prompt.ask("    Latitude"))
-    lng = float(Prompt.ask("    Longitude"))
-    return LatLng(lat=lat, lng=lng)
 
 
 # ---------------------------------------------------------------------------
@@ -149,7 +135,15 @@ def _select_or_create_road() -> tuple[str, str]:
 
 def _create_road() -> tuple[str, str]:
     """Prompt for road name and halts, save to DB, return (road_id, road_name)."""
-    road_name = Prompt.ask("Road Name")
+    while True:
+        road_name = Prompt.ask("Road Name").strip()
+        last_word = road_name.split()[-1] if road_name else ""
+        if len(last_word) == 2:
+            break
+        console.print(
+            f"[red]Road name must end with a two-character word "
+            f"(e.g. 'Rd', 'St', 'Dr'). Got '[bold]{last_word}[/bold]'.[/red]"
+        )
     road = Road(name=road_name)
     road_id = road.id
 
