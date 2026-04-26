@@ -668,7 +668,9 @@ def _insert_halt() -> None:
         console.print("[yellow]No roads in DB yet.[/yellow]")
         return
 
-    road_table = Table(title="Roads in DB", show_header=True, header_style="bold cyan")
+    road_table = Table(
+        title="Roads in DB", show_header=True, header_style="bold cyan"
+    )
     road_table.add_column("#", style="cyan", width=4)
     road_table.add_column("Road ID")
     for i, rid in enumerate(roads, 1):
@@ -696,7 +698,9 @@ def _insert_halt() -> None:
     road_halts.sort(key=lambda h: h[0])
 
     if not road_halts:
-        console.print(f"[yellow]No halts on road [bold]{road_id}[/bold] yet.[/yellow]")
+        console.print(
+            f"[yellow]No halts on road [bold]{road_id}[/bold] yet.[/yellow]"
+        )
         return
 
     halt_table = Table(
@@ -751,7 +755,9 @@ def _insert_halt() -> None:
                 start_road_index=seg["start_road_index"],
                 end_road_index=seg["end_road_index"],
             ).id
-            os.replace(seg_path, os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json"))
+            os.replace(
+                seg_path, os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json")
+            )
             # Update routes that referenced old segment id
             for rid in _list_db_ids(ROUTES_DIR):
                 route_path = os.path.join(ROUTES_DIR, f"{rid}.json")
@@ -764,7 +770,9 @@ def _insert_halt() -> None:
                         _save_json(route_path, rdata)
                 except (FileNotFoundError, KeyError):
                     continue
-            _save_json(os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json"), seg)
+            _save_json(
+                os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json"), seg
+            )
 
     # 6. Prompt for new halt
     road_data = _load_json(os.path.join(ROADS_DIR, f"{road_id}.json"))
