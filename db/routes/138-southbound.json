@@ -2,14 +2,14 @@
   "code": "138",
   "direction": "S",
   "road_segment_id_list": [
-    "olcott-mw-000-000",
-    "lotus-rd-000-000",
-    "parsons-rd-000-003",
-    "union-pl-000-004",
-    "dharmapala-mw-000-002",
-    "marcus-fernando-mw-000-002",
-    "philip-gunawardena-mw-000-002",
-    "havelock-rd-000-006",
-    "high-level-rd-000-000"
+    "olcott-mw-e-000-000",
+    "lotus-rd-s-000-000",
+    "parsons-rd-s-000-003",
+    "union-pl-e-000-004",
+    "dharmapala-mw-s-000-002",
+    "marcus-fernando-mw-s-000-002",
+    "philip-gunawardena-mw-s-000-002",
+    "havelock-rd-s-000-006",
+    "high-level-rd-e-000-000"
   ]
 }

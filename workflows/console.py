@@ -204,10 +204,21 @@ def _create_road() -> tuple[str, str]:
             f"[red]Road name must end with a two-character word "
             f"(e.g. 'Rd', 'St', 'Dr'). Got '[bold]{last_word}[/bold]'.[/red]"
         )
-    road = Road(name=road_name)
+
+    _VALID_DIRECTIONS = {"N", "S", "E", "W"}
+    direction = ""
+    while direction not in _VALID_DIRECTIONS:
+        direction = Prompt.ask("Road Direction [N|S|E|W]").strip().upper()
+        if direction not in _VALID_DIRECTIONS:
+            console.print("[red]Must be one of N, S, E, W.[/red]")
+
+    road = Road(name=road_name, direction=direction)
     road_id = road.id
 
-    _save_json(os.path.join(ROADS_DIR, f"{road_id}.json"), {"name": road_name})
+    _save_json(
+        os.path.join(ROADS_DIR, f"{road_id}.json"),
+        {"name": road_name, "direction": direction},
+    )
 
     # Collect halts
     console.print(
