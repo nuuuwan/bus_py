@@ -4,3 +4,4 @@ matplotlib
 contextily
 googlemaps
 polyline
+rich
