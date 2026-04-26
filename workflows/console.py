@@ -389,6 +389,63 @@ def _add_segments_to_route() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Update halt latlng
+# ---------------------------------------------------------------------------
+
+
+def _update_halt_latlng() -> None:
+    """Select an existing halt and update its latlng."""
+    console.print(Panel("[bold]Update Halt LatLng[/bold]", expand=False))
+
+    existing = _list_db_ids(HALTS_DIR)
+    if not existing:
+        console.print("[yellow]No halts in DB yet.[/yellow]")
+        return
+
+    table = Table(title="Halts in DB", show_header=True, header_style="bold cyan")
+    table.add_column("#", style="cyan", width=4)
+    table.add_column("Halt ID")
+    for i, hid in enumerate(existing, 1):
+        table.add_row(str(i), hid)
+    console.print(table)
+
+    raw = Prompt.ask("Select halt (number)").strip()
+    try:
+        idx = int(raw) - 1
+        if not (0 <= idx < len(existing)):
+            raise ValueError
+    except ValueError:
+        console.print("[red]Invalid selection.[/red]")
+        return
+
+    halt_id = existing[idx]
+    halt_path = os.path.join(HALTS_DIR, f"{halt_id}.json")
+    halt_data = _load_json(halt_path)
+
+    current = halt_data.get("latlng", {})
+    console.print(
+        f"  Current: [dim]{current.get('lat', '?')}, {current.get('lng', '?')}[/dim]"
+    )
+
+    while True:
+        entry = Prompt.ask(f"  New LatLng for [cyan]{halt_id}[/cyan] (lat, lng)").strip()
+        parts = entry.split(",")
+        if len(parts) == 2:
+            try:
+                lat, lng = float(parts[0].strip()), float(parts[1].strip())
+                maps_url = f"https://www.google.com/maps?q={lat},{lng}"
+                console.print("  [dim]Opening in Google Maps for verification…[/dim]")
+                webbrowser.open(maps_url)
+                break
+            except ValueError:
+                pass
+        console.print("[red]Enter as two numbers separated by a comma, e.g. 6.9171, 79.8656[/red]")
+
+    halt_data["latlng"] = {"lat": lat, "lng": lng}
+    _save_json(halt_path, halt_data)
+
+
+# ---------------------------------------------------------------------------
 # Main menu
 # ---------------------------------------------------------------------------
 
@@ -402,6 +459,7 @@ def main() -> None:
     _ACTIONS = {
         "route": ("New Route", _new_route),
         "add": ("Add Segments to Route", _add_segments_to_route),
+        "halt": ("Update Halt LatLng", _update_halt_latlng),
         "quit": ("Quit", None),
     }
 
