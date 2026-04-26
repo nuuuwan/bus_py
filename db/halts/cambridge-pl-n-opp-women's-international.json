@@ -1,9 +1,9 @@
 {
   "road_id": "cambridge-pl-n",
-  "road_index": 1,
+  "road_index": 0,
   "name": "Opp Women's International",
   "latlng": {
-    "lat": 66.90687990662856,
+    "lat": 6.90687990662856,
     "lng": 79.85974125586347
   }
 }
