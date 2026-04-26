@@ -654,8 +654,144 @@ def _render_route_map() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Main menu
+# Insert halt between two indexes on a road
 # ---------------------------------------------------------------------------
+
+
+def _insert_halt() -> None:
+    """Insert a new halt at a given road_index, shifting later halts up by 1."""
+    console.print(Panel("[bold]Insert Halt[/bold]", expand=False))
+
+    # 1. Select road
+    roads = _list_db_ids(ROADS_DIR)
+    if not roads:
+        console.print("[yellow]No roads in DB yet.[/yellow]")
+        return
+
+    road_table = Table(title="Roads in DB", show_header=True, header_style="bold cyan")
+    road_table.add_column("#", style="cyan", width=4)
+    road_table.add_column("Road ID")
+    for i, rid in enumerate(roads, 1):
+        road_table.add_row(str(i), rid)
+    console.print(road_table)
+
+    raw = Prompt.ask("Select road (number)").strip()
+    try:
+        road_id = roads[int(raw) - 1]
+    except (ValueError, IndexError):
+        console.print("[red]Invalid selection.[/red]")
+        return
+
+    # 2. Show current halts on the road sorted by road_index
+    all_halt_ids = _list_db_ids(HALTS_DIR)
+    road_halts: list[tuple[int, str, dict]] = []  # (road_index, halt_id, data)
+    for hid in all_halt_ids:
+        if not hid.startswith(road_id + "-"):
+            continue
+        try:
+            hdata = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
+            road_halts.append((hdata.get("road_index", 0), hid, hdata))
+        except (FileNotFoundError, KeyError):
+            continue
+    road_halts.sort(key=lambda h: h[0])
+
+    if not road_halts:
+        console.print(f"[yellow]No halts on road [bold]{road_id}[/bold] yet.[/yellow]")
+        return
+
+    halt_table = Table(
+        title=f"Halts on {road_id}", show_header=True, header_style="bold cyan"
+    )
+    halt_table.add_column("Index", style="cyan", width=6)
+    halt_table.add_column("Halt ID")
+    for ridx, hid, _ in road_halts:
+        halt_table.add_row(str(ridx), hid)
+    console.print(halt_table)
+
+    # 3. Ask for insert position
+    raw = Prompt.ask(
+        "Insert at road_index (new halt gets this index; later halts shift up)"
+    ).strip()
+    try:
+        insert_at = int(raw)
+    except ValueError:
+        console.print("[red]Invalid index.[/red]")
+        return
+
+    # 4. Shift all halts with road_index >= insert_at
+    for ridx, hid, hdata in reversed(road_halts):
+        if ridx < insert_at:
+            continue
+        old_path = os.path.join(HALTS_DIR, f"{hid}.json")
+        new_ridx = ridx + 1
+        hdata["road_index"] = new_ridx
+        # Rebuild halt id (road_id + kebab name, no index in id — just overwrite same file)
+        _save_json(old_path, hdata)
+
+    # 5. Update road segments whose end_road_index >= insert_at for this road
+    for sid in _list_db_ids(ROAD_SEGMENTS_DIR):
+        seg_path = os.path.join(ROAD_SEGMENTS_DIR, f"{sid}.json")
+        try:
+            seg = _load_json(seg_path)
+        except FileNotFoundError:
+            continue
+        if seg.get("road_id") != road_id:
+            continue
+        changed = False
+        if seg.get("start_road_index", 0) >= insert_at:
+            seg["start_road_index"] += 1
+            changed = True
+        if seg.get("end_road_index", 0) >= insert_at:
+            seg["end_road_index"] += 1
+            changed = True
+        if changed:
+            # Rename segment file to reflect new indices
+            new_seg_id = RoadSegment(
+                road_id=road_id,
+                start_road_index=seg["start_road_index"],
+                end_road_index=seg["end_road_index"],
+            ).id
+            os.replace(seg_path, os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json"))
+            # Update routes that referenced old segment id
+            for rid in _list_db_ids(ROUTES_DIR):
+                route_path = os.path.join(ROUTES_DIR, f"{rid}.json")
+                try:
+                    rdata = _load_json(route_path)
+                    seg_list = rdata.get("road_segment_id_list", [])
+                    if sid in seg_list:
+                        seg_list[seg_list.index(sid)] = new_seg_id
+                        rdata["road_segment_id_list"] = seg_list
+                        _save_json(route_path, rdata)
+                except (FileNotFoundError, KeyError):
+                    continue
+            _save_json(os.path.join(ROAD_SEGMENTS_DIR, f"{new_seg_id}.json"), seg)
+
+    # 6. Prompt for new halt
+    road_data = _load_json(os.path.join(ROADS_DIR, f"{road_id}.json"))
+    road_name = road_data.get("name", road_id)
+    halt_name = Prompt.ask(f"  New halt name at index {insert_at}").strip()
+    latlng = _geocode(halt_name, road_name)
+    halt = Halt(
+        road_id=road_id,
+        road_index=insert_at,
+        name=halt_name,
+        latlng=latlng,
+    )
+    _save_json(
+        os.path.join(HALTS_DIR, f"{halt.id}.json"),
+        {
+            "road_id": road_id,
+            "road_index": insert_at,
+            "name": halt_name,
+            "latlng": {"lat": latlng.lat, "lng": latlng.lng},
+        },
+    )
+    console.print(
+        Panel(
+            f"[bold green]Inserted halt [cyan]{halt_name}[/cyan] at index {insert_at} on {road_id}.[/bold green]",
+            expand=False,
+        )
+    )
 
 
 def main() -> None:
@@ -668,6 +804,7 @@ def main() -> None:
         "route": ("New Route", _new_route),
         "add": ("Add Segments to Route", _add_segments_to_route),
         "halt": ("Update Halt LatLng", _update_halt_latlng),
+        "insert": ("Insert Halt at Index", _insert_halt),
         "map": ("Render Route Map", _render_route_map),
         "quit": ("Quit", None),
     }
