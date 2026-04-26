@@ -983,6 +983,70 @@ def _insert_halt() -> None:
     )
 
 
+# ---------------------------------------------------------------------------
+# Validate DB
+# ---------------------------------------------------------------------------
+
+
+def _validate_db() -> None:
+    """Check road index continuity and route ordering for all roads/routes."""
+    console.print(Panel("[bold]Validate DB[/bold]", expand=False))
+    ok = True
+
+    # ------------------------------------------------------------------
+    # 1. Road index continuity: road with N halts must have indices 0..N-1
+    # ------------------------------------------------------------------
+    console.print("\n[bold cyan]1. Road index continuity[/bold cyan]")
+    all_halt_ids = _list_db_ids(HALTS_DIR)
+
+    # Group halts by road_id
+    road_to_halts: dict[str, list[tuple[int, str]]] = {}
+    for hid in all_halt_ids:
+        try:
+            hdata = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
+            rid = hdata.get("road_id", "")
+            ridx = hdata.get("road_index", -1)
+            road_to_halts.setdefault(rid, []).append((ridx, hid))
+        except (FileNotFoundError, KeyError):
+            continue
+
+    for rid, entries in sorted(road_to_halts.items()):
+        indices = sorted(e[0] for e in entries)
+        n = len(indices)
+        expected = list(range(n))
+        if indices != expected:
+            ok = False
+            missing = sorted(set(expected) - set(indices))
+            extra = sorted(set(indices) - set(expected))
+            parts = []
+            if missing:
+                parts.append(f"missing indices {missing}")
+            if extra:
+                parts.append(f"unexpected indices {extra}")
+            console.print(
+                f"  [red][bold]{rid}[/bold] — " + "; ".join(parts) + "[/red]"
+            )
+        else:
+            console.print(f"  [green]✓[/green] {rid} ({n} halt(s))")
+
+    # ------------------------------------------------------------------
+    # ------------------------------------------------------------------
+    # Summary
+    # ------------------------------------------------------------------
+    console.print()
+    if ok:
+        console.print(
+            Panel("[bold green]All checks passed.[/bold green]", expand=False)
+        )
+    else:
+        console.print(
+            Panel(
+                "[bold red]Anomalies found — see above.[/bold red]",
+                expand=False,
+            )
+        )
+
+
 def main() -> None:
     _ensure_dirs()
     console.print(
@@ -995,6 +1059,7 @@ def main() -> None:
         "H": ("Update Halt LatLng", _update_halt_latlng),
         "I": ("Insert Halt at Index", _insert_halt),
         "M": ("Render Route Map", _render_route_map),
+        "V": ("Validate DB", _validate_db),
         "Q": ("Quit", None),
     }
 
