@@ -404,41 +404,68 @@ def _add_segments_to_route() -> None:
 
 
 def _update_halt_latlng() -> None:
-    """Select existing halts and update their latlng, looping until done."""
+    """Select a road, then update latlng for halts on that road."""
     console.print(Panel("[bold]Update Halt LatLng[/bold]", expand=False))
 
+    # --- pick a road ---
+    roads = _list_db_ids(ROADS_DIR)
+    if not roads:
+        console.print("[yellow]No roads in DB yet.[/yellow]")
+        return
+
+    road_table = Table(title="Roads in DB", show_header=True, header_style="bold cyan")
+    road_table.add_column("#", style="cyan", width=4)
+    road_table.add_column("Road ID")
+    for i, rid in enumerate(roads, 1):
+        road_table.add_row(str(i), rid)
+    console.print(road_table)
+
+    raw = Prompt.ask("Select road (number)").strip()
+    try:
+        idx = int(raw) - 1
+        if not (0 <= idx < len(roads)):
+            raise ValueError
+        road_id = roads[idx]
+    except ValueError:
+        console.print("[red]Invalid selection.[/red]")
+        return
+
+    # --- loop over halts on that road ---
     while True:
-        existing = _list_db_ids(HALTS_DIR)
-        if not existing:
-            console.print("[yellow]No halts in DB yet.[/yellow]")
+        all_halts = _list_db_ids(HALTS_DIR)
+        road_halts = [h for h in all_halts if h.startswith(road_id + "-")]
+        if not road_halts:
+            console.print(f"[yellow]No halts found for road [bold]{road_id}[/bold].[/yellow]")
             return
 
-        table = Table(title="Halts in DB", show_header=True, header_style="bold cyan")
-        table.add_column("#", style="cyan", width=4)
-        table.add_column("Halt ID")
-        table.add_column("LatLng", style="dim")
-        for i, hid in enumerate(existing, 1):
+        halt_table = Table(
+            title=f"Halts on {road_id}", show_header=True, header_style="bold cyan"
+        )
+        halt_table.add_column("#", style="cyan", width=4)
+        halt_table.add_column("Halt ID")
+        halt_table.add_column("LatLng", style="dim")
+        for i, hid in enumerate(road_halts, 1):
             try:
                 data = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
                 ll = data.get("latlng", {})
                 latlng_str = f"{ll.get('lat', '?')}, {ll.get('lng', '?')}"
             except (FileNotFoundError, KeyError):
                 latlng_str = ""
-            table.add_row(str(i), hid, latlng_str)
-        console.print(table)
+            halt_table.add_row(str(i), hid, latlng_str)
+        console.print(halt_table)
 
         raw = Prompt.ask("Select halt (number, or [bold]done[/bold])", default="done").strip()
         if raw.lower() == "done":
             break
         try:
-            idx = int(raw) - 1
-            if not (0 <= idx < len(existing)):
+            hidx = int(raw) - 1
+            if not (0 <= hidx < len(road_halts)):
                 raise ValueError
         except ValueError:
             console.print("[red]Invalid selection.[/red]")
             continue
 
-        halt_id = existing[idx]
+        halt_id = road_halts[hidx]
         halt_path = os.path.join(HALTS_DIR, f"{halt_id}.json")
         halt_data = _load_json(halt_path)
 
