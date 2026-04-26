@@ -632,10 +632,10 @@ def _render_route_map() -> None:
     ax.set_axis_off()
     plt.tight_layout()
 
-    img_path = os.path.join(
-        os.path.dirname(__file__), "..", f"{route_id}.png"
+    img_path = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "images", "routes", f"{route_id}.png")
     )
-    img_path = os.path.abspath(img_path)
+    os.makedirs(os.path.dirname(img_path), exist_ok=True)
     plt.savefig(img_path, dpi=150, bbox_inches="tight")
     plt.close(fig)
     console.print(f"  [green]Saved →[/green] {img_path}")
