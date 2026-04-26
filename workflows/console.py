@@ -5,6 +5,9 @@ import json
 import os
 import sys
 
+import matplotlib.pyplot as plt
+import contextily as ctx
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from rich.console import Console
@@ -491,6 +494,105 @@ def _update_halt_latlng() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Render route map
+# ---------------------------------------------------------------------------
+
+
+def _render_route_map() -> None:
+    """Render a matplotlib map for a selected route showing all its halts."""
+    console.print(Panel("[bold]Render Route Map[/bold]", expand=False))
+
+    result = _select_route()
+    if result is None:
+        return
+    route_id, route_data = result
+
+    seg_ids: list[str] = route_data.get("road_segment_id_list", [])
+
+    # Collect (road_id, start_index, end_index) per segment
+    segments: list[dict] = []
+    for sid in seg_ids:
+        seg_path = os.path.join(ROAD_SEGMENTS_DIR, f"{sid}.json")
+        try:
+            segments.append(_load_json(seg_path))
+        except FileNotFoundError:
+            console.print(f"  [yellow]Segment file not found: {sid}[/yellow]")
+
+    # Collect halts that belong to any segment on this route
+    all_halt_ids = _list_db_ids(HALTS_DIR)
+    halt_points: list[tuple[float, float, str]] = []  # (lat, lng, name)
+
+    for seg in segments:
+        road_id = seg["road_id"]
+        start_idx = seg.get("start_road_index", 0)
+        end_idx = seg.get("end_road_index", 9999)
+        for hid in all_halt_ids:
+            if not hid.startswith(road_id + "-"):
+                continue
+            try:
+                hdata = _load_json(os.path.join(HALTS_DIR, f"{hid}.json"))
+                ridx = hdata.get("road_index", 0)
+                if start_idx <= ridx <= end_idx:
+                    ll = hdata.get("latlng", {})
+                    lat = ll.get("lat")
+                    lng = ll.get("lng")
+                    if lat is not None and lng is not None:
+                        halt_points.append((lat, lng, hdata.get("name", hid)))
+            except (FileNotFoundError, KeyError):
+                continue
+
+    if not halt_points:
+        console.print("[yellow]No halts with latlng found for this route.[/yellow]")
+        return
+
+    console.print(f"  Plotting [bold]{len(halt_points)}[/bold] halt(s)…")
+
+    try:
+        import matplotlib
+        matplotlib.use("TkAgg")  # use interactive backend if available
+    except Exception:
+        pass
+
+    fig, ax = plt.subplots(figsize=(8, 10))
+
+    lats = [p[0] for p in halt_points]
+    lngs = [p[1] for p in halt_points]
+
+    # Convert to Web Mercator for contextily
+    try:
+        import pyproj
+        transformer = pyproj.Transformer.from_crs("EPSG:4326", "EPSG:3857", always_xy=True)
+        xs, ys = transformer.transform(lngs, lats)
+    except Exception:
+        # Fallback: plain lat/lng axes without basemap
+        xs, ys = lngs, lats
+        transformer = None
+
+    ax.scatter(xs, ys, zorder=5, color="crimson", s=60)
+    for x, y, name in zip(xs, ys, [p[2] for p in halt_points]):
+        ax.annotate(
+            name,
+            (x, y),
+            textcoords="offset points",
+            xytext=(6, 4),
+            fontsize=7,
+            zorder=6,
+        )
+    ax.plot(xs, ys, color="steelblue", linewidth=1.5, zorder=4)
+
+    if transformer is not None:
+        try:
+            ctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik)
+        except Exception as exc:
+            console.print(f"  [yellow]Basemap unavailable: {exc}[/yellow]")
+
+    ax.set_title(f"Route {route_data.get('code', route_id)} — {route_id}")
+    ax.set_axis_off()
+    plt.tight_layout()
+    plt.show()
+
+
+# ---------------------------------------------------------------------------
 # Main menu
 # ---------------------------------------------------------------------------
 
@@ -505,6 +607,7 @@ def main() -> None:
         "route": ("New Route", _new_route),
         "add": ("Add Segments to Route", _add_segments_to_route),
         "halt": ("Update Halt LatLng", _update_halt_latlng),
+        "map": ("Render Route Map", _render_route_map),
         "quit": ("Quit", None),
     }
 

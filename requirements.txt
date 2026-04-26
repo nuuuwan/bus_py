@@ -2,6 +2,7 @@ utils-nuuuwan
 overpy
 matplotlib
 contextily
+pyproj
 googlemaps
 polyline
 rich
