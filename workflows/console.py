@@ -3,10 +3,11 @@
 
 import json
 import os
+import subprocess
 import sys
 
-import matplotlib.pyplot as plt
 import contextily as ctx
+import matplotlib.pyplot as plt
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
@@ -509,7 +510,7 @@ def _render_route_map() -> None:
 
     seg_ids: list[str] = route_data.get("road_segment_id_list", [])
 
-    # Collect (road_id, start_index, end_index) per segment
+    # Load segment metadata
     segments: list[dict] = []
     for sid in seg_ids:
         seg_path = os.path.join(ROAD_SEGMENTS_DIR, f"{sid}.json")
@@ -518,14 +519,20 @@ def _render_route_map() -> None:
         except FileNotFoundError:
             console.print(f"  [yellow]Segment file not found: {sid}[/yellow]")
 
-    # Collect halts that belong to any segment on this route
     all_halt_ids = _list_db_ids(HALTS_DIR)
-    halt_points: list[tuple[float, float, str]] = []  # (lat, lng, name)
+
+    # Build ordered list of halts per segment, sorted by road_index
+    # Each entry: (lat, lng, label)
+    segments_halts: list[list[tuple[float, float, str]]] = []
 
     for seg in segments:
         road_id = seg["road_id"]
         start_idx = seg.get("start_road_index", 0)
         end_idx = seg.get("end_road_index", 9999)
+
+        seg_halts: list[tuple[int, float, float, str]] = (
+            []
+        )  # (road_index, lat, lng, label)
         for hid in all_halt_ids:
             if not hid.startswith(road_id + "-"):
                 continue
@@ -537,19 +544,33 @@ def _render_route_map() -> None:
                     lat = ll.get("lat")
                     lng = ll.get("lng")
                     if lat is not None and lng is not None:
-                        halt_points.append((lat, lng, hdata.get("name", hid)))
+                        label = f"{road_id} [{ridx}]\n{hdata.get('name', hid)}"
+                        seg_halts.append((ridx, lat, lng, label))
             except (FileNotFoundError, KeyError):
                 continue
 
+        seg_halts.sort(key=lambda h: h[0])
+        segments_halts.append(
+            [(lat, lng, label) for _, lat, lng, label in seg_halts]
+        )
+
+    # Flatten to ordered halt_points and record segment boundaries for linking
+    halt_points: list[tuple[float, float, str]] = []
+    for seg_h in segments_halts:
+        halt_points.extend(seg_h)
+
     if not halt_points:
-        console.print("[yellow]No halts with latlng found for this route.[/yellow]")
+        console.print(
+            "[yellow]No halts with latlng found for this route.[/yellow]"
+        )
         return
 
     console.print(f"  Plotting [bold]{len(halt_points)}[/bold] halt(s)…")
 
     try:
         import matplotlib
-        matplotlib.use("TkAgg")  # use interactive backend if available
+
+        matplotlib.use("TkAgg")
     except Exception:
         pass
 
@@ -558,27 +579,48 @@ def _render_route_map() -> None:
     lats = [p[0] for p in halt_points]
     lngs = [p[1] for p in halt_points]
 
-    # Convert to Web Mercator for contextily
     try:
         import pyproj
-        transformer = pyproj.Transformer.from_crs("EPSG:4326", "EPSG:3857", always_xy=True)
+
+        transformer = pyproj.Transformer.from_crs(
+            "EPSG:4326", "EPSG:3857", always_xy=True
+        )
         xs, ys = transformer.transform(lngs, lats)
     except Exception:
-        # Fallback: plain lat/lng axes without basemap
         xs, ys = lngs, lats
         transformer = None
 
+    # Draw lines segment by segment (last of one links to first of next)
+    offset = 0
+    for seg_h in segments_halts:
+        n = len(seg_h)
+        if n == 0:
+            continue
+        seg_xs = xs[offset : offset + n]
+        seg_ys = ys[offset : offset + n]
+        ax.plot(seg_xs, seg_ys, color="steelblue", linewidth=1.5, zorder=4)
+        # Link last halt of this segment to first halt of next segment
+        if offset + n < len(halt_points):
+            ax.plot(
+                [xs[offset + n - 1], xs[offset + n]],
+                [ys[offset + n - 1], ys[offset + n]],
+                color="steelblue",
+                linewidth=1.5,
+                linestyle="dashed",
+                zorder=4,
+            )
+        offset += n
+
     ax.scatter(xs, ys, zorder=5, color="crimson", s=60)
-    for x, y, name in zip(xs, ys, [p[2] for p in halt_points]):
+    for x, y, label in zip(xs, ys, [p[2] for p in halt_points]):
         ax.annotate(
-            name,
+            label,
             (x, y),
             textcoords="offset points",
             xytext=(6, 4),
-            fontsize=7,
+            fontsize=6,
             zorder=6,
         )
-    ax.plot(xs, ys, color="steelblue", linewidth=1.5, zorder=4)
 
     if transformer is not None:
         try:
@@ -589,7 +631,20 @@ def _render_route_map() -> None:
     ax.set_title(f"Route {route_data.get('code', route_id)} — {route_id}")
     ax.set_axis_off()
     plt.tight_layout()
-    plt.show()
+
+    img_path = os.path.join(
+        os.path.dirname(__file__), "..", f"{route_id}.png"
+    )
+    img_path = os.path.abspath(img_path)
+    plt.savefig(img_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    console.print(f"  [green]Saved →[/green] {img_path}")
+
+    # Open with the OS default image viewer
+    subprocess.Popen(["open", img_path])
+
+    console.print("[dim]Bye.[/dim]")
+    raise SystemExit(0)
 
 
 # ---------------------------------------------------------------------------
