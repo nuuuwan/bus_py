@@ -1,0 +1,17 @@
+{
+  "code": "138",
+  "direction": "N",
+  "road_segment_id_list": [
+    "havelock-rd-n-000-003",
+    "kumaratunga-munidasa-mw-n-000-001",
+    "cambridge-pl-n-000-000",
+    "marcus-fernando-mw-w-000-000",
+    "dharmapala-mw-e-000-003",
+    "union-pl-w-000-003",
+    "malay-st-n-000-000",
+    "parsons-rd-n-000-003",
+    "york-st-n-000-000",
+    "chatham-st-e-000-000",
+    "olcott-mw-w-000-000"
+  ]
+}
