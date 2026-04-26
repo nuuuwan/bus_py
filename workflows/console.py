@@ -407,7 +407,9 @@ def _update_halt_latlng() -> None:
         console.print("[yellow]No roads in DB yet.[/yellow]")
         return
 
-    road_table = Table(title="Roads in DB", show_header=True, header_style="bold cyan")
+    road_table = Table(
+        title="Roads in DB", show_header=True, header_style="bold cyan"
+    )
     road_table.add_column("#", style="cyan", width=4)
     road_table.add_column("Road ID")
     for i, rid in enumerate(roads, 1):
@@ -429,11 +431,15 @@ def _update_halt_latlng() -> None:
         all_halts = _list_db_ids(HALTS_DIR)
         road_halts = [h for h in all_halts if h.startswith(road_id + "-")]
         if not road_halts:
-            console.print(f"[yellow]No halts found for road [bold]{road_id}[/bold].[/yellow]")
+            console.print(
+                f"[yellow]No halts found for road [bold]{road_id}[/bold].[/yellow]"
+            )
             return
 
         halt_table = Table(
-            title=f"Halts on {road_id}", show_header=True, header_style="bold cyan"
+            title=f"Halts on {road_id}",
+            show_header=True,
+            header_style="bold cyan",
         )
         halt_table.add_column("#", style="cyan", width=4)
         halt_table.add_column("Halt ID")
@@ -448,7 +454,9 @@ def _update_halt_latlng() -> None:
             halt_table.add_row(str(i), hid, latlng_str)
         console.print(halt_table)
 
-        raw = Prompt.ask("Select halt (number, or [bold]done[/bold])", default="done").strip()
+        raw = Prompt.ask(
+            "Select halt (number, or [bold]done[/bold])", default="done"
+        ).strip()
         if raw.lower() == "done":
             break
         try:
@@ -464,7 +472,9 @@ def _update_halt_latlng() -> None:
         halt_data = _load_json(halt_path)
 
         while True:
-            entry = Prompt.ask(f"  New LatLng for [cyan]{halt_id}[/cyan] (lat, lng)").strip()
+            entry = Prompt.ask(
+                f"  New LatLng for [cyan]{halt_id}[/cyan] (lat, lng)"
+            ).strip()
             parts = entry.split(",")
             if len(parts) == 2:
                 try:
@@ -472,7 +482,9 @@ def _update_halt_latlng() -> None:
                     break
                 except ValueError:
                     pass
-            console.print("[red]Enter as two numbers separated by a comma, e.g. 6.9171, 79.8656[/red]")
+            console.print(
+                "[red]Enter as two numbers separated by a comma, e.g. 6.9171, 79.8656[/red]"
+            )
 
         halt_data["latlng"] = {"lat": lat, "lng": lng}
         _save_json(halt_path, halt_data)
