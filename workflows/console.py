@@ -4,7 +4,6 @@
 import json
 import os
 import sys
-import webbrowser
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
@@ -78,11 +77,6 @@ def _geocode(halt_name: str, road_name: str) -> LatLng:
             try:
                 lat, lng = float(parts[0].strip()), float(parts[1].strip())
                 latlng = LatLng(lat=lat, lng=lng)
-                maps_url = f"https://www.google.com/maps?q={lat},{lng}"
-                console.print(
-                    f"  [dim]Opening in Google Maps for verification…[/dim]"
-                )
-                webbrowser.open(maps_url)
                 return latlng
             except ValueError:
                 pass
