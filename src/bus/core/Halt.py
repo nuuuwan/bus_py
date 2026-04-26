@@ -15,6 +15,5 @@ class Halt:
         # E.g. "galle-road-002-colombo-museum"
         return IDMixin.from_items(
             self.road_id,
-            f"{self.road_index:03d}",
             String.to_kebab_case(self.name),
         )
